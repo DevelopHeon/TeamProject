@@ -13,7 +13,7 @@ public class MainPage {
 	public void mainMenu() {
 		
 		ManagerLogin mal = new ManagerLogin();
-		MemberInfo mem = new MemberInfo();
+		MemberPage mem = new MemberPage();
 		NoticeMenu nm = new NoticeMenu();
 		
 		while(true) {
@@ -39,7 +39,7 @@ public class MainPage {
 				join();
 				break;
 			case 4 :
-				nm.noticeMenu();;
+				nm.noticeMenu();
 				break;
 			case 9 :
 				System.out.println("프로그램을 종료합니다.");
