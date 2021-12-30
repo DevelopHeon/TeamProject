@@ -13,7 +13,7 @@ public class MainPage {
 	public void mainMenu() {
 		
 		ManagerLogin mal = new ManagerLogin();
-		MemberInfo mem = new MemberInfo();
+		MemberPage mem = new MemberPage();
 		NoticeMenu nm = new NoticeMenu();
 		
 		while(true) {
