@@ -2,6 +2,12 @@ package com.kh.miniproject.view;
 
 public class MemberInfo {
 	
+	public MemberInfo() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void memberMainMenu() {}
+	
 	public void memberInfoEdit() {}
 	
 	public void memberWithdraw() {}
