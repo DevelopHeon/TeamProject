@@ -39,7 +39,7 @@ public class MainPage {
 				join();
 				break;
 			case 4 :
-				nm.noticeMenu();;
+				nm.noticeMenu();
 				break;
 			case 9 :
 				System.out.println("프로그램을 종료합니다.");
