@@ -7,7 +7,7 @@ import com.kh.miniproject.controller.NoticeController;
 public class MainPage {
 	
 	public MainPage() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	private Scanner sc = new Scanner(System.in);

@@ -196,6 +196,7 @@ public class ReviewBoard {
 		}
 	}
 
+
 	public void deleteReview() {
 		System.out.println("삭제할 리뷰 번호를 입력해주세요 : ");
 		int rNo = sc.nextInt();
@@ -216,11 +217,9 @@ public class ReviewBoard {
 				return;
 			}
 		}
-		
-		
+
+	
 	}
-	
-	
 	
 
 }

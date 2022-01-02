@@ -15,7 +15,10 @@ public class MemberPage {
 	
 	Scanner sc = new Scanner(System.in);
 
+
+	
 	public MemberPage() {}
+
 
 	public void memberMainMenu() {
 		while (true) {

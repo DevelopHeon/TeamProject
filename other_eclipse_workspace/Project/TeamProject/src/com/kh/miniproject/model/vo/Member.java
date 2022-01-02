@@ -13,7 +13,7 @@ public class Member extends Admin{
 	private int overdue;
 	
 	public Member() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Member(String id, String pwd, String name, int age, 
