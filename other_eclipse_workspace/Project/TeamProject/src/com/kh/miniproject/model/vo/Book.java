@@ -2,6 +2,8 @@ package com.kh.miniproject.model.vo;
 
 public class Book {
 	
+	private int bNum;
+	
 	private String title;
 	
 	private String author;
@@ -12,11 +14,20 @@ public class Book {
 
 	public Book(String title, String author, String publisher) {
 		super();
+		
 		this.title = title;
 		this.author = author;
 		this.publisher = publisher;
 	}
 
+
+	public int getbNum() {
+		return bNum;
+	}
+
+	public void setbNum(int bNum) {
+		this.bNum = bNum;
+	}
 
 	public String getTitle() {
 		return title;
@@ -41,10 +52,12 @@ public class Book {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Book [title=" + title + ", author=" + author + ", publisher=" + publisher + "]";
+		return "Book [bNum=" + bNum + ", title=" + title + ", author=" + author + ", publisher=" + publisher + "]";
 	}
+	
 
+	
 }
