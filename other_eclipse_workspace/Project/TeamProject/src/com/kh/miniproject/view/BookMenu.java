@@ -93,7 +93,7 @@ public class BookMenu {
 		System.out.println("도서 출판사 : ");
 		String publisher = sc.nextLine();
 		
-		Book book = new Book(title, author, publisher);
+		Book book = new Book(title, author, publisher,true);
 		
 		bm.insertBook(book);
 		
