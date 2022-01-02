@@ -12,11 +12,11 @@ public class MainPage {
 	
 	private Scanner sc = new Scanner(System.in);
 	
+	ManagerLogin mal = new ManagerLogin();
+	MemberPage mem = new MemberPage();
+	NoticeMenu nm = new NoticeMenu();
+	
 	public void mainMenu() {
-		
-		ManagerLogin mal = new ManagerLogin();
-		MemberPage mem = new MemberPage();
-		NoticeMenu nm = new NoticeMenu();
 		
 		while(true) {
 			System.out.println("==== 메뉴 ====");

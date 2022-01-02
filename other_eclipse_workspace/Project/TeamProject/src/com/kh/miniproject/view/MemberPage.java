@@ -44,7 +44,7 @@ public class MemberPage {
 				mi.memberMainMenu();
 				break;
 			case 4:
-				rb.reviewBoard();
+				rb.ReviewBoard();
 				break;
 			case 0:
 				System.out.println("이전 메뉴로 돌아갑니다.");
