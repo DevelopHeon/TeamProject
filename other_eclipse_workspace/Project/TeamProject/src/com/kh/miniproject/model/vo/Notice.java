@@ -1,26 +1,33 @@
 package com.kh.miniproject.model.vo;
 
-public class Notice {
-	
+public class Notice implements Comparable<Notice>{
+	// 공지사항 게시물 번호
 	private int noticeNum;
-	
+	// 공지사항 제목
 	private String noticeTitle;
-	
+	// 공지사항 내용
 	private String noticeContent;
 	
-	public Notice() {
-		// TODO Auto-generated constructor stub
-	}
 
+	public Notice() {	}
+	
 	public Notice(int noticeNum, String noticeTitle, String noticeContent) {
-		super();
 		this.noticeNum = noticeNum;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+	}
+	
+	// 공지사항 추가시 사용할 생성자, 번호는 매개변수로 받지 않는다.
+	public Notice(String noticeTitle, String noticeContent) {
 		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
 	}
 
 	public int getNoticeNum() {
 		return noticeNum;
+	}
+	public void setNoticeTitle(String noticeTitle) {
+		this.noticeTitle = noticeTitle;
 	}
 
 	public void setNoticeNum(int noticeNum) {
@@ -29,10 +36,6 @@ public class Notice {
 
 	public String getNoticeTitle() {
 		return noticeTitle;
-	}
-
-	public void setNoticeTitle(String noticeTitle) {
-		this.noticeTitle = noticeTitle;
 	}
 
 	public String getNoticeContent() {
@@ -45,8 +48,12 @@ public class Notice {
 	
 	@Override
 	public String toString() {
-		return "Notice [noticeNum=" + noticeNum + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
-				+ "]";
+		return noticeNum + ". " + noticeTitle + ": " + noticeContent;
+	}
+	
+	public int compareTo(Notice n) {
+		
+		return this.noticeNum - n.noticeNum;
 	}
 	
 }
