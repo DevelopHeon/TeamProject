@@ -118,6 +118,5 @@ public class NoticeMenu {
 			System.out.println("잘못 입력하여 이전 메뉴로 돌아갑니다.");
 		}
 	}
-
 	
 }
