@@ -2,17 +2,45 @@ package com.kh.miniproject.view;
 
 import java.util.Scanner;
 
+
+
 public class ManagerLogin {
+	
+	private static final String mId = "manager"; // 관리자 아이디와 비밀번호는 상수로 생성
+	private static final String mPwd = "12345"; 
 	
 	Scanner sc = new Scanner(System.in);
 	
 	NoticeMenu nc = new NoticeMenu();
+	BookMenu bm = new BookMenu();
+	
 	
 	public ManagerLogin() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
+
 	public void managerMainMenu() {
+		
+	
+		while(true) {
+			
+			System.out.println("아이디 : ");
+			String id = sc.nextLine();
+			System.out.println("비밀번호 : ");
+			String pwd = sc.nextLine();
+			
+			if(mId.equals(id) && pwd.equals(mPwd)) {
+				System.out.println("로그인 성공");
+				break;
+			}else { 
+				System.out.println("로그인 실패했습니다. 다시 입력해보세요.");
+				continue;
+				
+			}
+		}
+		
+		
 		
 		while(true) {
 			System.out.println("==== 관리자 메뉴 ====");
@@ -32,7 +60,7 @@ public class ManagerLogin {
 				nc.noticeManagement();
 				break;
 			case 2 :
-				bookManagement();
+				bm.bookManagement();
 				break;
 			case 3 :
 				allMember();
@@ -54,7 +82,7 @@ public class ManagerLogin {
 	}
 	
 	
-	public void bookManagement() {}
+
 	
 	public void allMember() {}
 	

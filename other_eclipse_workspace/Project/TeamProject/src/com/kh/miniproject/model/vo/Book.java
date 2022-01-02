@@ -2,7 +2,11 @@ package com.kh.miniproject.model.vo;
 
 public class Book {
 	
+
+	
+
 	private int bNum; // 도서 번호 추가함
+
 	
 	private String title;
 	
@@ -16,6 +20,7 @@ public class Book {
 
 	public Book(String title, String author, String publisher, boolean rent) {
 		super();
+		
 		this.title = title;
 		this.author = author;
 		this.publisher = publisher;
@@ -29,6 +34,8 @@ public class Book {
 	public void setbNum(int bNum) {
 		this.bNum = bNum;
 	}
+
+
 
 	public String getTitle() {
 		return title;
@@ -53,6 +60,7 @@ public class Book {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
+
 	
 	public boolean isRent() {
 		return rent;
@@ -62,8 +70,13 @@ public class Book {
 		this.rent = rent;
 	}
 
+
 	@Override
 	public String toString() {
+
+		
+
+		
 		String rentA ="";
 		if(rent) {
 			rentA ="가능";
@@ -72,8 +85,9 @@ public class Book {
 		}
 		return bNum + ". 제목 : " + title + ", 작가 : " + author + ", 출판사 : " + publisher + " (대출 "
 				+ rentA + ")";
+
 	}
-
-
-
 }
+	
+
+

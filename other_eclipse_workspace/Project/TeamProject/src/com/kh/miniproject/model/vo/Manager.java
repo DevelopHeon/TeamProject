@@ -7,7 +7,7 @@ public class Manager extends Admin{
 	private String rank; // 직급
 	
 	public Manager() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public Manager(String id, String pwd, String name, String dept, String rank) {
