@@ -2,6 +2,8 @@ package com.kh.miniproject.view;
 
 import java.util.Scanner;
 
+import com.kh.miniproject.controller.NoticeController;
+
 public class MainPage {
 	
 	public MainPage() {
@@ -39,7 +41,7 @@ public class MainPage {
 				join();
 				break;
 			case 4 :
-				nm.noticeMenu();
+				nm.selectList();
 				break;
 			case 9 :
 				System.out.println("프로그램을 종료합니다.");
