@@ -1,24 +1,26 @@
 package com.kh.miniproject.model.vo;
+
 // toString은 안 만들었어요
-public class Member extends Admin{
-	
+public class Member extends Admin {
+
+	// 필드부
 	private int age;
-	
+
 	private char gender;
-	
+
 	private String address;
-	
+
 	private String phoneNum;
-	
+
 	private int overdue;
-	
+
 	public Member() {
-		
+
 	}
 
-	public Member(String id, String pwd, String name, int age, 
-			char gender, String address, String phoneNum, int overdue) {
-		
+	public Member(String id, String pwd, String name, int age, char gender, String address, String phoneNum,
+			int overdue) {
+
 		super(id, pwd, name);
 		this.age = age;
 		this.gender = gender;
@@ -66,7 +68,16 @@ public class Member extends Admin{
 	public void setOverdue(int overdue) {
 		this.overdue = overdue;
 	}
-	
-	
+
+	public String information() {
+		return "id : " + super.getId() + ", pwd : " + super.getPwd() + ", 이름 : " + super.getName() + ", 나이 : " + age
+				+ ", 성별 : " + gender + ", address : " + address + ", phoneNum : " + phoneNum + ", overdue=" + overdue;
+		/*
+		 * return "Member [id=\" + id + \", pwd=\" + pwd + \", name=\" + name + \"age="
+		 * + age + ", gender=" + gender + ", address=" + address + ", phoneNum=" +
+		 * phoneNum + ", overdue=" + overdue + "]";
+		 */
+
+	}
 
 }

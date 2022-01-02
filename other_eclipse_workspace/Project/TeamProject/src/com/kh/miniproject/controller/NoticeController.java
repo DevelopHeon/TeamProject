@@ -80,15 +80,15 @@ public class NoticeController {
 				if (menu == 1) {
 					System.out.println("변경 할 제목 : ");
 					String title = sc.nextLine();
-					
+
 					// 공지사항 등록 전 수정 할 것인지 한번 더 물어본다.
 					System.out.println("공지사항을 수정 하시겠습니까? (y/n) ");
 					String tInput = sc.nextLine();
-					
-					if(tInput.equalsIgnoreCase("y")) {
+
+					if (tInput.equalsIgnoreCase("y")) {
 						noticeList.get(i).setNoticeTitle(title);
 						System.out.println("제목 수정이 완료 되었습니다.");
-					}else {
+					} else {
 						System.out.println("제목 수정 등록이 취소되었습니다. 이전 메뉴로 돌아갑니다.");
 						return;
 					}
@@ -121,15 +121,15 @@ public class NoticeController {
 
 			if (noticeList.get(i).getNoticeNum() == nNo) {
 				// 매개변수 nNo과 같다면
-				
+
 				System.out.println("해당 공지사항을 삭제하시겠습니까 ? (y/n) ");
 				String dInput = sc.nextLine();
-				
-				//공지사항을 삭제 할 경우
-				if(dInput.equalsIgnoreCase("y")) {
-					
+
+				// 공지사항을 삭제 할 경우
+				if (dInput.equalsIgnoreCase("y")) {
+
 					noticeList.remove(noticeList.get(i)); // 그 객체 삭제 i번째 객체가 들어오기때문
-					
+
 					// 다시 remove한 객체부터 땡겨서 정렬해주기 위해 for문 선언
 					for (Notice n : noticeList) {
 						n.setNoticeNum(index++);
@@ -137,9 +137,9 @@ public class NoticeController {
 					// comparable 오버라이딩해서 오름차순으로 정렬해준다.
 					Collections.sort(noticeList);
 					return 1;
-				}else if(dInput.equalsIgnoreCase("n")){
+				} else if (dInput.equalsIgnoreCase("n")) {
 					return 2;
-				}else {
+				} else {
 					System.out.println("잘못 입력 하셨습니다.");
 					return 3;
 				}
