@@ -18,7 +18,7 @@ public class BookMenu {
 	
 	
 	
-	public void bookManagement() {
+	public void bookManagement() {//도서관리
 		
 		while(true) {
 			System.out.println(" <도서 관리> ");
@@ -100,7 +100,6 @@ public class BookMenu {
 	}
 	
 
-
 	private void updateBook() {//도서 수정
 		
 		System.out.println("도서 번호 : ");
@@ -119,11 +118,9 @@ public class BookMenu {
 			
 		}
 		
-		
-	
+
 	}
 		
-	
 
 	private void deleteBook() {//도서 삭제
 		System.out.println("도서 번호 : ");
@@ -143,10 +140,6 @@ public class BookMenu {
 		
 		
 	}
-
-
-
-
 
 
 }

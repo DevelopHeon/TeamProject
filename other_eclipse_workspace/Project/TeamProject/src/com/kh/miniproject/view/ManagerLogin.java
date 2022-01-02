@@ -2,7 +2,7 @@ package com.kh.miniproject.view;
 
 import java.util.Scanner;
 
-import com.kh.miniproject.controller.BookManagement;
+
 
 public class ManagerLogin {
 	
@@ -16,7 +16,7 @@ public class ManagerLogin {
 	
 	
 	public ManagerLogin() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 
@@ -82,7 +82,7 @@ public class ManagerLogin {
 	}
 	
 	
-	public void bookManagement() {}
+
 	
 	public void allMember() {}
 	

@@ -10,7 +10,7 @@ public class MemberPage {
 	Scanner sc = new Scanner(System.in);
 
 	public MemberPage() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public void memberMainMenu() {

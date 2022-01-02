@@ -6,7 +6,7 @@ public class MemberInfo {
 	
 	
 	public MemberInfo() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public void memberMainMenu() {
