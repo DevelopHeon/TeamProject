@@ -10,7 +10,7 @@ public class NoticeController {
 
 	Scanner sc = new Scanner(System.in);
 	// 객체 담아주고 넘겨받은 값 추가해주고 하기 위한 ArrayList 생성. 크기가 제한되어있지않아 좋다.
-	ArrayList<Notice> noticeList = new ArrayList<>();
+	ArrayList<Notice> noticeList = new ArrayList<Notice>();
 
 	public NoticeController() {
 	} // 기본 생성자

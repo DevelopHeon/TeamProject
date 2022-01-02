@@ -30,7 +30,7 @@ public class BookManagement {
 	//전재은
 	public ArrayList<Book> searchBook(String keyWord){ //도서 검색
 		
-		ArrayList<Book> searchList = new ArrayList<>();
+		ArrayList<Book> searchList = new ArrayList<Book>();
 		
 		for(Book b : bookList) {
 			if(b.getTitle().contains(keyWord)) {
