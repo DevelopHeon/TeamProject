@@ -1,14 +1,8 @@
 package com.kh.miniproject.model.vo;
 
-import java.io.Serializable;
 
 // toString은 안 만들었어요
-public class Member extends Admin implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2378811559915259317L;
+public class Member extends Admin{
 
 	// 필드부
 	private int age;
