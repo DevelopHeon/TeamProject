@@ -78,11 +78,11 @@ public class NoticeController {
 
 				// menu 1번 선택시 제목 변경
 				if (menu == 1) {
-					System.out.println("변경 할 제목 : ");
+					System.out.print("변경 할 제목 : ");
 					String title = sc.nextLine();
 
 					// 공지사항 등록 전 수정 할 것인지 한번 더 물어본다.
-					System.out.println("공지사항을 수정 하시겠습니까? (y/n) ");
+					System.out.print("공지사항을 수정 하시겠습니까? (y/n) ");
 					String tInput = sc.nextLine();
 
 					if (tInput.equalsIgnoreCase("y")) {
@@ -95,10 +95,10 @@ public class NoticeController {
 
 					// menu 2번 선택시 내용 변경
 				} else if (menu == 2) {
-					System.out.println("변경 할 내용 : ");
+					System.out.print("변경 할 내용 : ");
 					String content = sc.nextLine();
 
-					System.out.println("공지사항을 수정 하시겠습니까? (y/n) ");
+					System.out.print("공지사항을 수정 하시겠습니까? (y/n) ");
 					String cInput = sc.nextLine();
 
 					if (cInput.equalsIgnoreCase("y")) {
@@ -115,6 +115,7 @@ public class NoticeController {
 
 	public int deleteNotice(int nNo) {
 		// 공지사항 번호 넘겨받아서 삭제 반환값은 int형이다.
+		// 공지사항 삭제 한번은 괜찮은데 그 다음번에 하면 이상해진다. 왜그러지?
 
 		int index = 1;
 		for (int i = 0; i < noticeList.size(); i++) {
@@ -122,7 +123,7 @@ public class NoticeController {
 			if (noticeList.get(i).getNoticeNum() == nNo) {
 				// 매개변수 nNo과 같다면
 
-				System.out.println("해당 공지사항을 삭제하시겠습니까 ? (y/n) ");
+				System.out.print("해당 공지사항을 삭제하시겠습니까 ? (y/n) ");
 				String dInput = sc.nextLine();
 
 				// 공지사항을 삭제 할 경우
