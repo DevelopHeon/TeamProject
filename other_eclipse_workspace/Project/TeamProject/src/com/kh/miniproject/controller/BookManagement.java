@@ -5,14 +5,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+import com.kh.miniproject.model.dao.LoginDao;
 import com.kh.miniproject.model.vo.Book;
 
-public class BookManagement {
+public class BookManagement{
 	private ArrayList<Book> bookList = new ArrayList<Book>();
 	Scanner sc = new Scanner(System.in);
-
-	public BookManagement() {
-	}
+	private MemberController mc = new MemberController();
+	private LoginDao ld = new LoginDao();
+	//수정
+	private ArrayList<Book> rentBook = new ArrayList<Book>();//렌트한 책 담을 리스트
+	//
+	public BookManagement() {}
 
 	{
 		bookList.add(new Book("감자", "작가1", "출판사1", true));
@@ -113,8 +117,9 @@ public class BookManagement {
 					if (result.equalsIgnoreCase("Y")) {
 						b.setRent(false);// 해당 도서를 false(대여불가능)으로 수정
 						System.out.println("<" + b.getTitle() + ">의 대여가 완료되었습니다.");
-
-						// +회원 정보에 대여 기록 추가하기
+						
+//						System.out.println(ld.nowUser.toString());
+						rentBook.add(b);// +회원 정보에 대여 기록 추가하기
 
 						Date today = new Date();
 						int year = today.getYear();
@@ -125,7 +130,7 @@ public class BookManagement {
 
 						System.out.println("[반납일] " + sdf.format(dueDay));
 
-						System.out.println("[배달 주소] ");
+						System.out.println("[배달 주소] "/*user.getAddress()*/);//왜 주소가 비어있는지 문제 해결
 
 					} else { // 대여 취소
 						System.out.println("<" + b.getTitle() + ">의 대여가 취소되었습니다.");
@@ -146,9 +151,10 @@ public class BookManagement {
 			}
 		}
 	}
-
+	
 	public void rentList() {
-		for (Book b : bookList) {// 대여중 도서 목록 출력 (각 회원의 대여 정보랑 연동이 되어야 함)
+		//rentBook으로 수정
+		for (Book b : rentBook) {// 대여중 도서 목록 출력 (각 회원의 대여 정보랑 연동이 되어야 함)
 			if (!b.isRent()) {// 수정 전 임시로 대여중인 책 전권 출력
 				System.out.println(b);
 			}
@@ -163,7 +169,5 @@ public class BookManagement {
 			}
 		}
 	}
-
-	// 전재은
 
 }

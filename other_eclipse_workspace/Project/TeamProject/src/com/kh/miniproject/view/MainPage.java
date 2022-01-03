@@ -3,8 +3,8 @@ package com.kh.miniproject.view;
 import java.util.Scanner;
 
 import com.kh.miniproject.controller.MemberController;
+import com.kh.miniproject.model.dao.LoginDao;
 import com.kh.miniproject.model.vo.Member;
-import com.kh.miniproject.view.MainPage;
 
 public class MainPage {
 
@@ -18,6 +18,7 @@ public class MainPage {
 	ManagerLogin mal = new ManagerLogin();
 	MemberPage mp = new MemberPage();
 	NoticeMenu nm = new NoticeMenu();
+	LoginDao ld = new LoginDao();
 
 	MemberPage mem = new MemberPage();
 
@@ -44,7 +45,6 @@ public class MainPage {
 				break;
 			case 3:
 				join();
-
 				break;
 			case 4:
 				nm.selectList();
@@ -69,9 +69,8 @@ public class MainPage {
 		System.out.println("pwd :");
 		String pwd = sc.nextLine();
 
-		int result = mc.login(id, pwd);
-		System.out.println("reult : " + result);
-
+		int result = ld.login(id, pwd);
+		
 		if (result == 1) {
 			mp.memberMainMenu();
 		} else {
@@ -109,9 +108,9 @@ public class MainPage {
 			System.out.println("휴대폰 번호 : ");
 			String phoneNum = sc.nextLine();
 
-			Member newMember = new Member(id, pwd, name, age, gender, address, phoneNum, 0);
+			Member newMember = new Member(id, pwd, name, age, gender, address, phoneNum);
 
-			mc.insertMember(newMember);
+			ld.addMember(newMember);
 		}
 
 	}
