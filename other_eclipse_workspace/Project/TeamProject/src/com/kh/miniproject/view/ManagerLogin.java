@@ -1,6 +1,12 @@
 package com.kh.miniproject.view;
 
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
+
+import com.kh.miniproject.controller.BookManagement;
+import com.kh.miniproject.controller.MemberController;
+import com.kh.miniproject.model.vo.Member;
 
 public class ManagerLogin {
 
@@ -11,7 +17,8 @@ public class ManagerLogin {
 
 	NoticeMenu nc = new NoticeMenu();
 	BookMenu bm = new BookMenu();
-
+	MemberController am = new MemberController();
+	
 	public ManagerLogin() {
 
 	}
@@ -56,7 +63,7 @@ public class ManagerLogin {
 				bm.bookManagement();
 				break;
 			case 3:
-				allMember();
+				am.allMember();
 				break;
 			case 4:
 				overdueMember();
@@ -76,6 +83,8 @@ public class ManagerLogin {
 
 	public void allMember() {
 	}
+		
+	
 
 	public void overdueMember() {
 	}

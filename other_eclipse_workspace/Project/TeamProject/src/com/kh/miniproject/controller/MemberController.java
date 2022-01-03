@@ -105,4 +105,11 @@ public class MemberController {
 		mem[memberCount++] = m;
 	}
 
-}
+	public void allMember() {
+		System.out.println("전체 회원 목록");
+
+		}
+		
+	}
+
+
