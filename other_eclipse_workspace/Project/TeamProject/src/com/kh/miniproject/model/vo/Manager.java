@@ -1,37 +1,38 @@
 package com.kh.miniproject.model.vo;
 
-public class Manager extends Admin{
+public class Manager{
 	
-	private String dept; // 부서
+	private String id;
 	
-	private String rank; // 직급
+	private String pwd;
 	
-	public Manager() {
-		
-	}
-	
-	public Manager(String id, String pwd, String name, String dept, String rank) {
-		super(id, pwd, name);
-		this.dept = dept;
-		this.rank = rank;
+	public Manager() {}
 
+	public Manager(String id, String pwd) {
+		super();
+		this.id = id;
+		this.pwd = pwd;
 	}
 
-
-	public String getDept() {
-		return dept;
+	public String getId() {
+		return id;
 	}
 
-	public void setDept(String dept) {
-		this.dept = dept;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getRank() {
-		return rank;
+	public String getPwd() {
+		return pwd;
 	}
 
-	public void setRank(String rank) {
-		this.rank = rank;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+
+	@Override
+	public String toString() {
+		return "Manager [id=" + id + ", pwd=" + pwd + "]";
 	}
 	
 	
