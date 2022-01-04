@@ -49,6 +49,7 @@ public class NoticeDao {
 	// 2. 게시글 등록
 	public void writeNotice(Notice notice) {
 		noticeList.add(notice);
+		fileSave();
 	}
 
 	// 3. 공지사항 수정하기
@@ -96,6 +97,7 @@ public class NoticeDao {
 				}
 			}
 		}
+		fileSave();
 	}
 
 	// 공지사항 삭제 후 오름차순 정렬
@@ -115,6 +117,7 @@ public class NoticeDao {
 				}
 				//comparable 오버라이딩해서 오름차순으로 정렬해준다.
 				Collections.sort(noticeList);
+				fileSave();
 				break;
 			}
 		}
@@ -140,18 +143,12 @@ public class NoticeDao {
 	// 공지사항 저장하기
 	public void fileSave() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("noticeFile.dat"))) {
-			// 저장 될 공지사항 출력해준다.
-			for (Notice n : noticeList) {
-				System.out.println(n);
-			}
 			oos.writeObject(noticeList);
-
-			System.out.println("noticeList.dat에 저장 되었습니다.");
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("저장 할 파일을 찾을 수 없습니다.");
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -160,6 +157,7 @@ public class NoticeDao {
 	public void allClear() {
 		// clear() 메소드로 공지사항 전체 삭제
 		noticeList.clear();
+		fileSave();
 	}
 
 }
