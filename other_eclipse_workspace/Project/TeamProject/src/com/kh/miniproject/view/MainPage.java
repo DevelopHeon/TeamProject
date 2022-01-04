@@ -18,7 +18,7 @@ public class MainPage {
 
 	MemberController mc = new MemberController();
 	ManagerLogin mal = new ManagerLogin();
-	MemberPage mp = new MemberPage();
+	
 	NoticeController nc = new NoticeController();
 	LoginDao ld = new LoginDao();
 

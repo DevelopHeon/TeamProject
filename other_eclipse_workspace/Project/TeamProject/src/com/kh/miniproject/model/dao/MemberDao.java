@@ -20,9 +20,7 @@ public class MemberDao {
 		memList.add(new Member("user2", "user2", "도라지", 11, 'F', "서울시 용산구", "010-5656-5656"));
 		memList.add(new Member("user3", "user3", "미역국", 12, 'M', "서울시 강남구", "010-8989-8989"));
 	
-	int i = 0;
-	
-	for(Member m : memList) {
+	 {
 		 
 	}
 	
@@ -30,6 +28,7 @@ public class MemberDao {
 	
 	
 	public MemberDao() {
+	
 		try(ObjectInputStream my = new ObjectInputStream(new FileInputStream("memberFile.dat"))) {
 			
 			for(int i = 0 ; i< memList.size(); i ++) {
@@ -171,7 +170,7 @@ public class MemberDao {
 				}
 			
 				
-
+/*
 	// 나의 회원 정보 출력
 	public Member memberPrint(String id) {
 		Member member = null;
@@ -184,7 +183,9 @@ public class MemberDao {
 		}
 		return member;
 	}
-/*
+
+*/
+	/*
 	// 회원탈퇴
 	public void memberWithdraw(int withdraw) {
 

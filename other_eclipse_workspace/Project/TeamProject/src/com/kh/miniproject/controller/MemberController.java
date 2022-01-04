@@ -79,7 +79,7 @@ public class MemberController {
 	}
 
 
-	//회원정보출력
+	/*//회원정보출력
 	public void memberPrint() {
 	System.out.println("회원의 아이디를 입력해주세요");
 	String id = sc.nextLine();
@@ -94,7 +94,7 @@ public class MemberController {
 	
 		
 	}
-
+*/
 
 	//회원탈퇴
 	/*public void memberWithdraw() {
