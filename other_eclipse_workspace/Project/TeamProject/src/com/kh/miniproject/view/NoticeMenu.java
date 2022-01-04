@@ -1,11 +1,8 @@
 package com.kh.miniproject.view;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 import com.kh.miniproject.controller.NoticeController;
-import com.kh.miniproject.model.vo.Notice;
 
 public class NoticeMenu {
 
@@ -68,13 +65,6 @@ public class NoticeMenu {
 			default:
 				System.out.println("잘못된 메뉴입니다. 재입력 해주세요.");
 				break;
-
-				
-			}
-
-		}
-	}
-
 
 			}
 

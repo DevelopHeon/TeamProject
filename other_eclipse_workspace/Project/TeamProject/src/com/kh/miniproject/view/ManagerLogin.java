@@ -1,14 +1,9 @@
 package com.kh.miniproject.view;
 
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.Scanner;
 
+import com.kh.miniproject.controller.ReviewController;
 import com.kh.miniproject.model.dao.LoginDao;
-import com.kh.miniproject.model.vo.Member;
 
 public class ManagerLogin {
 
@@ -17,7 +12,7 @@ public class ManagerLogin {
 
 	Scanner sc = new Scanner(System.in);
 
-	ReviewBoard rc = new ReviewBoard();
+	ReviewController rc = new ReviewController();
 	NoticeMenu nc = new NoticeMenu();
 	BookMenu bm = new BookMenu();
 	LoginDao ld = new LoginDao();
