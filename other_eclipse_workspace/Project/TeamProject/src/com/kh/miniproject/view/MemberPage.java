@@ -2,27 +2,28 @@ package com.kh.miniproject.view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import com.kh.miniproject.controller.MemberController;
-import com.kh.miniproject.model.vo.Member;
+
 import com.kh.miniproject.controller.BookManagement;
+import com.kh.miniproject.controller.MemberController;
+import com.kh.miniproject.model.dao.DeliveryDao;
 import com.kh.miniproject.model.vo.Book;
+import com.kh.miniproject.model.vo.Member;
 
 public class MemberPage {
 	MemberController mc = new MemberController();
 	ReviewBoard rb = new ReviewBoard();
-
 	BookManagement bm = new BookManagement();
+	DeliveryDao dd= new DeliveryDao();
 
 	Scanner sc = new Scanner(System.in);
 
-	public MemberPage() {
-	}
+	public MemberPage() {}
 
 	public void memberMainMenu() {
 		while (true) {
 			System.out.println("==== 회원 메뉴 페이지 ====");
 			System.out.println("1. 도서 검색");
-			System.out.println("2. 도서 반납");
+			System.out.println("2. 배송 정보 조회");
 			System.out.println("3. 회원 정보 조회");
 			System.out.println("4. 리뷰 게시판");
 			System.out.println("0. 이전 메뉴로 가기");
@@ -36,12 +37,10 @@ public class MemberPage {
 				booksearch();
 				break;
 			case 2:
-				bookReturn();// 메소드 이름 수정함
+				infoCheck();
 				break;
 			case 3:
-
 				memberInfo();
-
 				break;
 			case 4:
 				rb.ReviewBoard();
@@ -173,7 +172,7 @@ public class MemberPage {
 		System.out.println("회원의 정보가 삭제되었습니다.");
 	}
 
-	public void booksearch() {
+	public void booksearch() {//도서 검색, 대여
 
 		while (true) {// 반복문
 			System.out.println("====도서 검색===");
@@ -203,27 +202,26 @@ public class MemberPage {
 
 				if (num == 0) {// 0 입력 -> while문 처음으로
 					break;
+				}else {
+					// BookManager의 rentBook 호출
+					bm.rentBook(num);
+					
 				}
-
-				// BookManager의 rentBook 호출
-				bm.rentBook(num);
 			}
 		}
-
 	}
 
-	private void bookReturn() {// 도서 반납 (회원 정보랑 연결)
-		System.out.println("====도서 반납====");
-		bm.rentList();// 대여중인 책 목록 출력
-
-		System.out.println("0. 이전 메뉴로 가기");
-		System.out.println("반납할 책 번호를 선택해주세요.");
-		int num = sc.nextInt();
-		if (num == 0) {// 0 입력 -> while문 처음으로
-			return;
+	public void infoCheck() {//배송 조회, 수정, 취소
+		while(true) {
+			System.out.println("====배송 정보 조회====");
+			System.out.println("수취인 이름을 입력해주세요.");
+			System.out.println("0. 이전 메뉴로 가기");
+			String name = sc.nextLine();
+			if (name.equals("0")) {// 0 입력 -> while문 처음으로
+				break;
+			}else {
+				bm.infoCheck(name);
+			}
 		}
-
-		bm.bookReturn(num);
 	}
-
 }

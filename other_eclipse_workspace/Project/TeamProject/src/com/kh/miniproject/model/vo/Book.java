@@ -3,10 +3,6 @@ package com.kh.miniproject.model.vo;
 import java.io.Serializable;
 
 public class Book implements Serializable{
-	
-
-	
-
 	/**
 	 * 
 	 */
