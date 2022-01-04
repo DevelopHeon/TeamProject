@@ -69,6 +69,13 @@ public class NoticeMenu {
 				System.out.println("잘못된 메뉴입니다. 재입력 해주세요.");
 				break;
 
+				
+			}
+
+		}
+	}
+
+
 			}
 
 		}
