@@ -44,7 +44,8 @@ public class NoticeController {
 		try {
 			lastNo = noticeList.get(noticeList.size() - 1).getNoticeNum() + 1;
 
-		} catch (IndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {계속 진도가 나간다고 능사가 아닐 것 같은데, 
+
 			lastNo = 1;
 		}
 		// setter 이용해서 매개변수로 받은 notice에 마지막 번호 추가

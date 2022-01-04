@@ -1,108 +1,111 @@
 package com.kh.miniproject.controller;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.kh.miniproject.model.dao.LoginDao;
+import com.kh.miniproject.model.dao.MemberDao;
 import com.kh.miniproject.model.vo.Member;
+import com.kh.miniproject.view.MemberPage;
 
 public class MemberController {
-
-	public static final int SIZE = 100;
-	private int memberCount;
-	private Member[] mem = new Member[SIZE];
-//	{
-//		mem[0] = new Member("skyblue1", "bcbc", "홍길동", 10, 'M', "서울시 마포구", "010-1234-4567", 0);
-//		mem[1] = new Member("skyblue2", "cdcd", "도라지", 11, 'M', "서울시 용산구", "010-5656-5656", 0);
-//		mem[2] = new Member("skyblue3", "efef", "미역국", 12, 'M', "서울시 강남구", "010-8989-8989", 0);
-//		memberCount = 3;
-//
-//	}
 	
-//	public int login(String id, String pwd) {
-//		int num = 0;
-//		for (int i = 0; i < memberCount; i++) {
-//			if (mem[i].getId().equals(id) && mem[i].getPwd().equals(pwd)) {
-//				System.out.println(mem[i].information());
-//				num = 1;
-//			}
-//		}
-//		return num;
-//	}
+	MemberDao md = new MemberDao();
+	Scanner sc = new Scanner (System.in);
+	MemberPage mp = new MemberPage();
+	LoginDao ld = new LoginDao();
+	public ArrayList <Member> memList = new ArrayList<Member>();
+	
+	//기본생성자
+	public MemberController() {	}
 
-	public int getMemberCount() {
+	
+	
 
-		return memberCount;
-	}
+	//로그인
+	public void login() {
 
-	public Member[] getMem() {
-		return mem;
-	}
+		System.out.println("id :");
+		String id = sc.nextLine();
 
-	public Member checkId(String id) {
+		System.out.println("pwd :");
+		String pwd = sc.nextLine();
 
-		// 전달받은 회원의 아이디와 일치하는 회원 객체를 보관할 변수
-		Member m = null;
-		// 현재 회원 수 만큼 반복
-		for (int i = 0; i < memberCount; i++) { // 일치하는 회원을 찾았을 경우
-			if (mem[i].getId().equals(id)) {
-				m = mem[i];
-			}
-
-		}
-		return m;
-	}
-
-	public void memberInfoEdit(Member mem, int menu, String edit) {
-		// 메뉴 1 -> 비밀번호 수정
-		if (menu == 1) {
-			mem.setPwd(edit);
-
-			// 메뉴 2 -> 이름 수정
-		} else if (menu == 2) {
-			mem.setName(edit);
-
-			// 메뉴 3 -> 주소 수정
-		} else if (menu == 3) {
-			mem.setAddress(edit);
-
-			// 메뉴 4 -> 휴대폰번호 수정
+		int result = ld.login(id, pwd);
+		
+		if (result == 1) {
+			mp.memberMainMenu();
 		} else {
-			mem.setPhoneNum(edit);
-
+			System.out.println("로그인에 실패하였습니다.");
 		}
 
 	}
-
-	public void memberWithdraw(String id) {
-		// 현재 회원수만큼 반복
-		for (int i = 0; i < memberCount; i++) {
-
-			// 해당 순차적으로 접근한 객체의 아이디와 전달된 삭제할 회원의 아이디와 비교
-			if (mem[i].getId().equals(id)) {// 일치하는 회원 찾았을 경우
-
-				// 만약 해당 회원이 마지막 회원이였을 경우
-				if (i == memberCount - 1) {
-					mem[i] = null; // 해당 회원 삭제만하면 됨 (null로 대입)
-
-				} else { // 만약 해당 회원이 마지막 회원이 아닌 중간에 있었던 회원이였을 경우 => 뒤에 있는 회원들을 한칸씩 앞으로 땡겨야 된다.
-
-					// 뒤에 있었던 회원들을 한칸씩 앞으로 땡기는 작업
-					for (int j = i; j < memberCount - 1; j++) {
-						mem[j] = mem[j + 1];
-					}
-					mem[memberCount - 1] = null; // 그리고 마지막이였던 회원은 null로
-				}
-
-				memberCount--; // 삭제했으니깐 memberCount 1감소
-
-				break; // 삭제 한 후 이 반복문 빠져나가야됨
-			}
-		}
-
+	//회원등록
+	public void join() {
+		System.out.println("Id : ");
+		String id = sc.nextLine();
+		
+		System.out.println("Pwd :");
+		String pwd = sc.nextLine();
+		
+		System.out.println("이름: ");
+		String name = sc.nextLine();
+		
+		System.out.println("나이: ");
+		int age = sc.nextInt();
+		
+		System.out.println("성별: ");
+		char gender = sc.next().charAt(0);
+		
+		System.out.println("주소: ");
+		String address = sc.nextLine();
+		
+		System.out.println("휴대폰 번호: ");
+		String phoneNum = sc.nextLine();
+		
+		Member join = new Member(id, pwd, name, age, gender, address, phoneNum);
+		
 	}
 
-	public void insertMember(Member m) {
-		mem[memberCount++] = m;
+
+	//회원정보수정
+	public void memberInfoEdit() {
+		System.out.println("회원정보를 수정하시겠습니까? (y/n) ");
+		String info = sc.nextLine();
+		
+		md.memberInfoEdit(info);
 	}
+
+
+	//회원정보출력
+	public void memberPrint() {
+	System.out.println("회원의 아이디를 입력해주세요");
+	String id = sc.nextLine();
+	
+	Member member = md.memberPrint(id);
+	if(member == null) {
+		System.out.println("조회된 아이디가 없습니다.");
+		
+	}else {
+		System.out.println(id);
+	}
+	
+		
+	}
+
+
+	//회원탈퇴
+	/*public void memberWithdraw() {
+		System.out.println("탈퇴할 아이디를 입력하세요");
+		String id = sc.nextLine();
+		
+		
+		md.memberWithdraw(withdraw);
+		
+	}*/
+
+
+
+	
 
 }

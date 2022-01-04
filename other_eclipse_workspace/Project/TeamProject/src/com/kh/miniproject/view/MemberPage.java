@@ -8,15 +8,16 @@ import com.kh.miniproject.controller.BookManagement;
 import com.kh.miniproject.model.vo.Book;
 
 public class MemberPage {
+	
+
 	MemberController mc = new MemberController();
 	ReviewBoard rb = new ReviewBoard();
-
 	BookManagement bm = new BookManagement();
 
 	Scanner sc = new Scanner(System.in);
 
-	public MemberPage() {
-	}
+	public MemberPage() { }
+	
 
 	public void memberMainMenu() {
 		while (true) {
@@ -39,9 +40,7 @@ public class MemberPage {
 				bookReturn();// 메소드 이름 수정함
 				break;
 			case 3:
-
 				memberInfo();
-
 				break;
 			case 4:
 				rb.ReviewBoard();
@@ -73,16 +72,16 @@ public class MemberPage {
 			switch (menu) {
 
 			case 1:
-				memberInfoEdit();
+				mc.memberInfoEdit();
 				break;
 
 			case 2:
-				memberprint();
+				mc.memberPrint();
 				break;
 
-			case 3:
-				memberWithdraw();
-				return;
+//			case 3:
+//				mc.memberWithdraw();
+//				return;
 
 			case 0:
 				System.out.println("이전 메뉴로 돌아갑니다.");
@@ -92,85 +91,8 @@ public class MemberPage {
 				System.out.println("잘못 입력하였습니다. 다시 입력하세요");
 				continue;
 			}
-		}
-
-	}
-
-	public void memberInfoEdit() {
-		while (true) {
-			System.out.println("===== 회원 정보 수정 =====");
-			System.out.println("1. 비밀번호 수정");
-			System.out.println("2. 이름 수정");
-			System.out.println("3. 주소 수정");
-			System.out.println("4. 휴대폰 번호 수정");
-
-			System.out.println("0. 이전 페이지");
-
-			System.out.println("메뉴 선택 : ");
-			int menu = sc.nextInt();
-			sc.nextLine();
-			if (menu == 0) {
-				System.out.println("이전 페이지로 돌아갑니다.");
-				return;
-			}
-
-			System.out.print("\n변경할 회원 아이디 : ");
-			String id = sc.nextLine();
-
-			// 아이디로 회원 조회 요청 (Controller에 요청함)
-			Member m = mc.checkId(id);
-			// m : 일치하는 회원 찾은 경우 해당 회원 객체, 못찾은 경우 null
-
-			if (m == null) {
-				System.out.println("변경할 회원에 대한 정보가 존재하지 않습니다.");
-
-			} else {
-
-				System.out.println("기존 정보 : " + m.information()); // 우선 현재 회원의 기존 정보 출력
-
-				System.out.print("\n변경 내용 : ");
-				String edit = sc.nextLine(); // 수정할 값 입력받기
-
-				System.out.println("회원의 정보가 변경되었습니다.");
-
-				mc.memberInfoEdit(m, menu, edit);
-			}
-
-			System.out.println("회원 정보 수정이 완료되었습니다.");
-		}
-
-	}
-
-	private void memberprint() {
-		int i = 0;
-		Member[] mem = mc.getMem();
-		System.out.println(mem[i].information());
-		if (mem[i] == null) {
-			System.out.println("이미 탈퇴한 회원입니다.");
-		}
-	}
-
-	public void memberWithdraw() {
-		System.out.println("탈퇴할 회원 아이디 :");
-		String id = sc.nextLine();
-
-		Member m = mc.checkId(id);
-		if (m == null) {
-			System.out.println("탈퇴할 회원이 존재하지 않습니다.");
-
-		} else {
-			System.out.println("기존 정보 출력 : " + m.information());
-
-			System.out.println("정말 탈퇴하시겠습니까? (y/n) ");
-			char ch = sc.nextLine().toUpperCase().charAt(0);
-
-			if (ch == 'Y') {
-				mc.memberWithdraw(id);
-
-			}
 
 		}
-		System.out.println("회원의 정보가 삭제되었습니다.");
 	}
 
 	public void booksearch() {
@@ -227,3 +149,5 @@ public class MemberPage {
 	}
 
 }
+
+

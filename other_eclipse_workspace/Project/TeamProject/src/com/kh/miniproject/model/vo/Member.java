@@ -4,11 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;//전재은
 
 // toString은 안 만들었어요
-public class Member /*extends Admin*/ implements Serializable{
+public class Member implements Serializable{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 5461114678133906765L;
 
 	private String id;
@@ -16,7 +14,7 @@ public class Member /*extends Admin*/ implements Serializable{
 	private String pwd;
 	
 	private String name;
-	// 필드부
+	
 	private int age;
 
 	private char gender;
@@ -28,11 +26,7 @@ public class Member /*extends Admin*/ implements Serializable{
 	//전재은
 	private ArrayList<Book> rentList;
 
-	private int overdue;
-
-	public Member() {
-
-	}
+	
 
 	public Member(String id, String pwd, String name, int age, char gender, String address, String phoneNum) {
 
@@ -44,7 +38,7 @@ public class Member /*extends Admin*/ implements Serializable{
 		this.gender = gender;
 		this.address = address;
 		this.phoneNum = phoneNum;
-		this.overdue = overdue;
+		
 	}
 	
 	public String getId() {
@@ -114,30 +108,34 @@ public class Member /*extends Admin*/ implements Serializable{
 		this.phoneNum = phoneNum;
 	}
 
-	public int getOverdue() {
-		return overdue;
-	}
 
-	public void setOverdue(int overdue) {
-		this.overdue = overdue;
-	}
+	
 
 	@Override
 	public String toString() {
 		return "회원 [id=" + id + ", pwd=" + pwd + ", 이름=" + name + ", 나이=" + age + ", 성별=" + gender
-				+ ", 주소=" + address + ", 핸드폰번호=" + phoneNum + ", rentList=" + rentList + ", overdue=" + overdue
-				+ "]";
+				+ ", 주소=" + address + ", 핸드폰번호=" + phoneNum + ", rentList=" + rentList ;
+	}
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return (id+pwd+name+age+gender+address+phoneNum).hashCode(); 
 	}
 
-//	public String information() {
-//		return "id : " + super.getId() + ", pwd : " + super.getPwd() + ", 이름 : " + super.getName() + ", 나이 : " + age
-//				+ ", 성별 : " + gender + ", address : " + address + ", phoneNum : " + phoneNum + ", overdue=" + overdue;
-//		/*
-//		 * return "Member [id=\" + id + \", pwd=\" + pwd + \", name=\" + name + \"age="
-//		 * + age + ", gender=" + gender + ", address=" + address + ", phoneNum=" +
-//		 * phoneNum + ", overdue=" + overdue + "]";
-//		 */
-//
-//	}
+	@Override 
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Member)) {
+			return false;
+		}
+		
+		Member other = (Member)obj;
+		if(this.id.equals(other.id)&& this.pwd.equals(other.pwd)) {
+			return true;
+		}else {
+		}
+		return false;
+	}
+
+
 
 }

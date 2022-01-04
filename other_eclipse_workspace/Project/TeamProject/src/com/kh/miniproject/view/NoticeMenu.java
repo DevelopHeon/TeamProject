@@ -20,6 +20,7 @@ public class NoticeMenu {
 
 	// 공지 사항 관리.
 	public void noticeManagement() {
+
 		
 		while(true) {
 			System.out.println("===== 공지 게시판 =====");
