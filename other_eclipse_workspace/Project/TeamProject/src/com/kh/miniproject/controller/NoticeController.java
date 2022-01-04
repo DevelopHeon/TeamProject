@@ -1,13 +1,20 @@
 package com.kh.miniproject.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Iterator;
 import java.util.Scanner;
 
+import com.kh.miniproject.model.dao.NoticeDao;
+import com.kh.miniproject.model.noticeComparator.AscNoticeNum;
+import com.kh.miniproject.model.noticeComparator.AscNoticeTitle;
+import com.kh.miniproject.model.noticeComparator.DescNoticeNum;
+import com.kh.miniproject.model.noticeComparator.DescNoticeTitle;
 import com.kh.miniproject.model.vo.Notice;
+import com.kh.miniproject.view.ManagerLogin;
 
 public class NoticeController {
 
+	NoticeDao nd = new NoticeDao();
 	Scanner sc = new Scanner(System.in);
 	// 객체 담아주고 넘겨받은 값 추가해주고 하기 위한 ArrayList 생성. 크기가 제한되어있지않아 좋다.
 	ArrayList<Notice> noticeList = new ArrayList<Notice>();
@@ -15,137 +22,138 @@ public class NoticeController {
 	public NoticeController() {
 	} // 기본 생성자
 
-	{ // 공지사항 초기화 블럭을 이용해 초기화
-		noticeList.add(new Notice("휴무 일정", "12월 31일, 1월 1일, 설날은 휴무입니다. 다른 날..."));
-		noticeList.add(new Notice("** 기념행사", "이번 달 1달간 기념으로 ..."));
-		noticeList.add(new Notice("최우수 독서왕 행사", "책을 읽고 가장 많은 리뷰..."));
-		noticeList.add(new Notice("프로젝트가 하기 싫다.", "주말에도 이러고 있는게 싫은 사람이.."));
-		noticeList.add(new Notice("가위바위보", "가위바위보를 이기면"));
+	public void noticeAllList() {
+		// 공지 사항 전체 조회 반복자 사용
+		Iterator it = nd.displayAllList().iterator();
+		while (it.hasNext()) {
+			System.out.println(it.next());
+		}
+	}
+	
+	public void noticeDelete() {
+		System.out.print("삭제할 공지사항 번호를 입력하세요.");
+		int nNo = sc.nextInt();
+		sc.nextLine();
+		
+		//게시글 한개만 조회하기로 번호 던져준다.
+		Notice notice = nd.oneList(nNo);
+		
+		if(notice == null) {
+			System.out.println("삭제할 공지사항 번호가 존재하지 않습니다.");
+		}else {
+			// 담긴 공지사항 출력
+			System.out.println(notice);
+			
+			System.out.println("해당 공지사항을 삭제하시겠습니까 ? (y/n) ");
+			String input = sc.nextLine();
+			
+			if(input.equalsIgnoreCase("y")) {
+				nd.deleteNotice(nNo);
+				System.out.println(nNo + "번 공지사항이 삭제되었습니다.");
+			}
+			
+		}
+	}
 
-		// 공지사항 번호 넣어주기 위한 변수 선언
-		int i = 1;
+	public void oneList() {
+		System.out.print("조회할 공지사항 번호를 입력하세요 : ");
+		int no = sc.nextInt();
 
-		for (Notice n : noticeList) {
-			n.setNoticeNum(i++);
+		Notice notice = nd.oneList(no);
+
+		if (notice == null) {
+			System.out.println("조회된 공지사항이 없습니다.");
+		} else {
+			System.out.println(notice);
 		}
 
 	}
 
-	public ArrayList<Notice> selectList() {
-		// 공지 사항 조회
-		return noticeList;
+	// 공지사항 파일에 저장하기
+	public void fileSave() {
+
+		// NoticeDao에 있는 fileSave 메소드 호출
+		nd.fileSave();
+
 	}
 
-	public void insertNotice(Notice notice) {
-		// 매개변수로 전달받은 Notice타입 객체를 공지사항 목록에 추가해준다.
-		// noticeMenu에서 호출
-		int lastNo = 0;
+	// 공지사항 수정하기
+	public void noticeEdit() { // 공지사항 수정
+		// 공지사항 수정은 공지사항 번호로 호출하여 수정하도록 작성
+		System.out.println("몇 번째 공지사항을 수정하시겠습니까 ? ");
+		int num = sc.nextInt();
+		sc.nextLine();
+
+		// NoticeController에 있는 메소드에 매개변수로 값을 넘겨준다
+		nd.editNotice(num);
+
+	}
+
+	// 공지사항 등록하기
+	public void noticeInsert() { // 공지사항 등록
+		System.out.println("<새 공지사항 등록>");
+
+		System.out.print("공지사항 제목 : ");
+		String title = sc.nextLine();
+
+		System.out.print("공지사항 내용 : ");
+		String content = sc.nextLine();
 
 		try {
-			lastNo = noticeList.get(noticeList.size() - 1).getNoticeNum() + 1;
-
+			nd.writeNotice(new Notice(nd.getLastNoticeNo() + 1, title, content));
 		} catch (IndexOutOfBoundsException e) {
-			lastNo = 1;
-		}
-		// setter 이용해서 매개변수로 받은 notice에 마지막 번호 추가
-		notice.setNoticeNum(lastNo);
-
-		// 공지사항 등록 전 한 번 더 물어본다.
-		System.out.println("공지사항을 추가하시겠습니까? (y/n)");
-		String input = sc.next();
-		// 소문자 대문자 구분 없이 y이면
-		if (input.equalsIgnoreCase("y")) {
-			// ArrayList인 noticeList에 add 메소드로 추가
-			noticeList.add(notice);
-			System.out.println("공지사항 등록이 완료 되었습니다.");
-
-		} else {
-			// 그 외에 대답은 공지사항 등록 취소 이전 메뉴로 돌아간다.
-			System.out.println("공지사항 등록을 취소합니다. 이전 메뉴로 돌아갑니다.");
-			return;
+			nd.writeNotice(new Notice(1, title, content));
 		}
 
 	}
 
-	public void editNotice(int num) {
-		// 매개 변수로 넘겨받은 번호의 공지사항을 수정
+	public void sortList(int menu) {
 
-		for (int i = 0; i < noticeList.size(); i++) {
-			if (noticeList.get(i).getNoticeNum() == num) {
-				System.out.println("공지사항 중 수정할 메뉴를 선택하세요. (1. 제목 , 2. 내용)");
-				int menu = sc.nextInt();
-				sc.nextLine();
+		ArrayList<Notice> nList = nd.displayAllList();
+		
+		if(menu == 1) { // 제목 오름차순 정렬
+			nList.sort(new AscNoticeTitle());
+		}else if(menu == 2) { // 제목 내림차순 정렬
+			nList.sort(new DescNoticeTitle());
+		}else if(menu == 3) {
+			nList.sort(new AscNoticeNum());
+		}else if(menu == 4) {
+			nList.sort(new DescNoticeNum());
+		}
+		
+	}
 
-				// menu 1번 선택시 제목 변경
-				if (menu == 1) {
-					System.out.println("변경 할 제목 : ");
-					String title = sc.nextLine();
-
-					// 공지사항 등록 전 수정 할 것인지 한번 더 물어본다.
-					System.out.println("공지사항을 수정 하시겠습니까? (y/n) ");
-					String tInput = sc.nextLine();
-
-					if (tInput.equalsIgnoreCase("y")) {
-						noticeList.get(i).setNoticeTitle(title);
-						System.out.println("제목 수정이 완료 되었습니다.");
-					} else {
-						System.out.println("제목 수정 등록이 취소되었습니다. 이전 메뉴로 돌아갑니다.");
-						return;
-					}
-
-					// menu 2번 선택시 내용 변경
-				} else if (menu == 2) {
-					System.out.println("변경 할 내용 : ");
-					String content = sc.nextLine();
-
-					System.out.println("공지사항을 수정 하시겠습니까? (y/n) ");
-					String cInput = sc.nextLine();
-
-					if (cInput.equalsIgnoreCase("y")) {
-						noticeList.get(i).setNoticeContent(content);
-						System.out.println("내용 수정이 완료 되었습니다.");
-					} else {
-						System.out.println("내용 수정 등록이 취소되었습니다. 이전 메뉴로 돌아갑니다.");
+	// 공지사항 전체 삭제
+	public void allClear() {
+		// 공지사항 목록 출력
+		
+		System.out.println("<현재 공지사항 목록>");
+		// 현재 목록 출력
+		noticeAllList();
+		
+		noticeList = nd.displayAllList();
+		
+		// size()가 0일 경우 공지사항 존재하지 않는다고 멘트 뜨게 하려는데 안뜸 이유가..?
+		for(int i=0; i<noticeList.size(); i++) {
+			if(noticeList.isEmpty()) {
+				System.out.println("공지사항이 존재하지 않습니다.");
+			}else {
+				System.out.println();
+				System.out.println("관리자의 암호를 입력하세요.");
+				String pwd = sc.nextLine();
+				if(pwd.equals(ManagerLogin.mPwd)) {
+					System.out.println("공지사항을 전부 삭제하시겠습니까? (y/n)");
+					String input = sc.nextLine();
+					
+					if(input.equalsIgnoreCase("y")) {
+						nd.allClear();
+						System.out.println("성공적으로 공지사항을 삭제하였습니다.");
+					}else {
+						System.out.println("잘못 입력하셨습니다. 이전메뉴로 돌아갑니다.");
 						return;
 					}
 				}
 			}
 		}
-	}
-
-	public int deleteNotice(int nNo) {
-		// 공지사항 번호 넘겨받아서 삭제 반환값은 int형이다.
-
-		int index = 1;
-		for (int i = 0; i < noticeList.size(); i++) {
-
-			if (noticeList.get(i).getNoticeNum() == nNo) {
-				// 매개변수 nNo과 같다면
-
-				System.out.println("해당 공지사항을 삭제하시겠습니까 ? (y/n) ");
-				String dInput = sc.nextLine();
-
-				// 공지사항을 삭제 할 경우
-				if (dInput.equalsIgnoreCase("y")) {
-
-					noticeList.remove(noticeList.get(i)); // 그 객체 삭제 i번째 객체가 들어오기때문
-
-					// 다시 remove한 객체부터 땡겨서 정렬해주기 위해 for문 선언
-					for (Notice n : noticeList) {
-						n.setNoticeNum(index++);
-					}
-					// comparable 오버라이딩해서 오름차순으로 정렬해준다.
-					Collections.sort(noticeList);
-					return 1;
-				} else if (dInput.equalsIgnoreCase("n")) {
-					return 2;
-				} else {
-					System.out.println("잘못 입력 하셨습니다.");
-					return 3;
-				}
-			}
-		}
-		// 위 구문에서 for문 타지 않았을시 0 반환
-		return 0;
 	}
 }
