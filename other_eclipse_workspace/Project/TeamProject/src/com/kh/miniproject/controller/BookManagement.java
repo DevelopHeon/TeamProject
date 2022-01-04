@@ -1,98 +1,159 @@
 package com.kh.miniproject.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
+import com.kh.miniproject.model.dao.BookDao;
 import com.kh.miniproject.model.dao.DeliveryDao;
-import com.kh.miniproject.model.dao.LoginDao;
 import com.kh.miniproject.model.vo.Book;
 import com.kh.miniproject.model.vo.Delivery;
 
 public class BookManagement{
-	private ArrayList<Book> bookList = new ArrayList<Book>();
+	public ArrayList<Book> bookList = new ArrayList<Book>();
 	Scanner sc = new Scanner(System.in);
 	private MemberController mc = new MemberController();
-	private LoginDao ld = new LoginDao();
+	
+	BookDao bd = new BookDao();
 	//수정
 	private DeliveryDao dd = new DeliveryDao();
 	//
 	public BookManagement() {}
 
-	{
-		bookList.add(new Book("감자", "작가1", "출판사1", true));
-		bookList.add(new Book("고구마", "작가2", "출판사2", true));
-		bookList.add(new Book("옥수수", "작가3", "출판사3", true));
-		bookList.add(new Book("감자와 고구마", "작가4", "출판사4", false));
-		bookList.add(new Book("마", "작가1", "출판사1", true));
-		bookList.add(new Book("호박", "작가4", "출판사4", false));
-		int i = 0;
-		for (Book b : bookList) {// 이미 등록된 도서 번호 set
-			b.setbNum(++i);
+	
+	
+	
+	public void selectAll() {// 도서 전체 조회
+		
+		Iterator it = bd.selectAll().iterator();
+		while(it.hasNext()) {
+			System.out.println(it.next());
 		}
-
-	}
-
-	public ArrayList<Book> selectAll() {
-
-		return bookList;
-
-	}
-
-	public void insertBook(Book book) {// 도서 추가
-
-		int lastNum = 0; // 변수 생성 및 초기화
-
-		try {
-			lastNum = bookList.get(bookList.size() - 1).getbNum() + 1;// 마지막 도서 번호 + 1
-			// 0 부터 시작이라 크기에 -1을 해준다
-		} catch (IndexOutOfBoundsException e) {// 예외처리
-			// 북리스트보다 크기가 크거나 음수 인덱스 예외 처리해줌
-			lastNum = 1;
-		}
-
-		// 매개변수로 받은 book 객체에 번호 초기화
-		book.setbNum(lastNum);
-
-		bookList.add(book);
-
-	}
-
-	public int updateBook(int bNum) {// 도서 수정
-
-		for (int i = 0; i < bookList.size(); i++) {
-			if (bookList.get(i).getbNum() == bNum) {// bookList.get(i).getbNum : 해당 인덱스의 book을 가져와서 넘버를 얻음
-
-				System.out.println("제목 수정 : ");
-				bookList.get(i).setTitle(sc.nextLine());
-				System.out.println("작가 수정 : ");
-				bookList.get(i).setAuthor(sc.nextLine());
-				System.out.println("출판사 수정 : ");
-				bookList.get(i).setPublisher(sc.nextLine());
-
-				return 1;
+		while(true) {
+			System.out.println("도서 관리 메뉴로 돌아가시겠습니까(y/n) : ");
+			String str =sc.nextLine();
+			if(str.equalsIgnoreCase("y")) {
+				return;
+			}else if(str.equalsIgnoreCase("n")){
+				System.out.println("프로그램을 종료합니다.");
+				System.exit(0);
+				
+			}else {
+				System.out.println("문자를 잘못입력하셨습니다. 다시 입력해주세요.");
 			}
 		}
-		return 0;
+		
+		
 	}
+	
 
-	public int deleteBook(int bNum) {// 도서 삭제
-		// 반환은 int형으로
-
-		for (int i = 0; i < bookList.size(); i++) {
-
-			if (bookList.get(i).getbNum() == bNum) {
-
-				bookList.remove(bookList.get(i)); // 삭제
-				return 1; // 1로 반환
-			}
-
+	public void insertBook() {//도서 추가
+		
+		
+		System.out.println("도서 제목 : ");
+		String title = sc.nextLine();
+		System.out.println("도서 작가 : ");
+		String author = sc.nextLine();
+		System.out.println("도서 출판사 : ");
+		String publisher = sc.nextLine();
+		
+		try { //1) 기존의 게시글이 있을 경우(파일이 존재할 경우)
+			bd.insertBook(new Book(bd.getLastBoardNo() + 1, title, author, publisher, true));
+		}catch(IndexOutOfBoundsException e ) {//2) 기존의 게시글이 없을 경우(파일이 존재하지 않을 경우)
+			bd.insertBook(new Book(1, title, author, publisher,true));
 		}
-
-		return 0;
+		
+		
+	
 	}
 
-	// 전재은
-	public ArrayList<Book> searchBook(String keyWord) { // 도서 검색
+	
+	
+	
+	
+	public void updateTitle() {// 도서 제목 수정
+	
+		System.out.print("수정할 도서 번호 : ");
+		int no = sc.nextInt();
+		sc.nextLine();
+		
+		Book book = bd.bNum(no);
+		if (bookList == null) {
+			System.out.println("조회된 도서가 없습니다.");
+		} else {
+			System.out.println(book);
+			
+			System.out.print("변경할 도서 제목 : ");
+			String title = sc.nextLine();
+			bd.updateTitle(no,title);
+		}
+	}
+	
+	public void updateAuthor() {
+		
+		System.out.print("수정할 도서 번호 : ");
+		int no = sc.nextInt();
+		sc.nextLine();
+		
+		Book book = bd.bNum(no);
+		if (bookList == null) {
+			System.out.println("조회된 도서가 없습니다.");
+		} else {
+			System.out.println(book);
+			
+			System.out.print("변경할 작가 : ");
+			String author = sc.nextLine();
+			bd.updateAuthor(no,author);
+		}
+	}
+	
+
+
+	public void updatePublisher() { //도서 출판사 수정
+		
+
+		System.out.print("수정할 도서 번호 : ");
+		int no = sc.nextInt();
+		sc.nextLine();
+		
+		Book book = bd.bNum(no);
+		if (bookList == null) {
+			System.out.println("조회된 도서가 없습니다.");
+		} else {
+			System.out.println(book);
+			
+			System.out.print("변경할 출판사 : ");
+			String publisher = sc.nextLine();
+			bd.updatePublisher(no,publisher);
+		}
+	}
+		
+
+	
+	public void deleteBook() { // 도서 삭제 
+		System.out.print("삭제할 도서 번호 : ");
+		int no = sc.nextInt();
+		sc.nextLine();
+
+
+		if (bookList == null) {
+			System.out.println("조회된 도서가 없습니다.");
+		} else {
+			
+			System.out.print("정말로 삭제하시겠습니까? (y/n) : ");
+			char ch = sc.nextLine().toUpperCase().charAt(0);
+			if (ch == 'Y') {
+				bd.deleteBook(no);
+				System.out.println(no + "번 도서가 삭제되었습니다.");
+			}
+		}
+	}
+
+
+
+
+
+public ArrayList<Book> searchBook(String keyWord) { // 도서 검색
 
 		ArrayList<Book> searchList = new ArrayList<Book>();
 

@@ -22,9 +22,9 @@ public class Book implements Serializable{
 	
 	public Book() {	}
 
-	public Book(String title, String author, String publisher, boolean rent) {
+	public Book(int bNum,String title, String author, String publisher, boolean rent) {
 		super();
-		
+		this.bNum = bNum;
 		this.title = title;
 		this.author = author;
 		this.publisher = publisher;
