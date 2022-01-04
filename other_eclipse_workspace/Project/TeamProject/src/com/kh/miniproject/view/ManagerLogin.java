@@ -67,10 +67,10 @@ public class ManagerLogin {
 				bm.bookManagement();
 				break;
 			case 3:
-				ld.LoginDaoOpen();
+				rc.selectAll();
 				break;
 			case 4:
-				reviewBoard();
+				ld.LoginDaoOpen();
 				break;
 			case 0:
 				System.out.println("이전 메뉴로 돌아갑니다.");
