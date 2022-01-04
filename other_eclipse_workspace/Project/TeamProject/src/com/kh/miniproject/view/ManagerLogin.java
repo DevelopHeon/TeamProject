@@ -2,16 +2,10 @@ package com.kh.miniproject.view;
 
 import java.util.Scanner;
 
-<<<<<<< HEAD
-=======
 import com.kh.miniproject.controller.MemberController;
->>>>>>> branch 'master' of https://github.com/DevelopHeon/TeamProject.git
 import com.kh.miniproject.controller.ReviewController;
 import com.kh.miniproject.model.dao.LoginDao;
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/DevelopHeon/TeamProject.git
 
 public class ManagerLogin {
 

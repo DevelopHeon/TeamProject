@@ -1,6 +1,8 @@
 package com.kh.miniproject.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -149,11 +151,9 @@ public class BookManagement{
 
 
 
-}
 
 
-	// 전재은
-/*	public ArrayList<Book> searchBook(String keyWord) { // 도서 검색
+public ArrayList<Book> searchBook(String keyWord) { // 도서 검색
 
 		ArrayList<Book> searchList = new ArrayList<Book>();
 
@@ -179,19 +179,8 @@ public class BookManagement{
 						b.setRent(false);// 해당 도서를 false(대여불가능)으로 수정
 						System.out.println("<" + b.getTitle() + ">의 대여가 완료되었습니다.");
 						
-//						System.out.println(ld.nowUser.toString());
 						rentBook.add(b);// +회원 정보에 대여 기록 추가하기
 
-						Date today = new Date();
-						int year = today.getYear();
-						int month = today.getMonth();
-						int date = today.getDate();
-						Date dueDay = new Date(year, month, date + 7);// 대여일 +7일
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-
-						System.out.println("[반납일] " + sdf.format(dueDay));
-
-						System.out.println("[배달 주소] "user.getAddress());//왜 주소가 비어있는지 문제 해결
 
 					} else { // 대여 취소
 						System.out.println("<" + b.getTitle() + ">의 대여가 취소되었습니다.");
@@ -231,4 +220,4 @@ public class BookManagement{
 		}
 	} 
 
-} */
+}
