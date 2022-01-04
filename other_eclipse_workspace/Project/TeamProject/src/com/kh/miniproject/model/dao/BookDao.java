@@ -7,55 +7,21 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import com.kh.miniproject.model.vo.Book;
 
 public class BookDao {
 
-	Scanner sc = new Scanner(System.in);
 
 	ArrayList<Book> bookList = new ArrayList<Book>();
 	// vo클래스 자료형을 임시로 저장할 컬렉션(ArrayList)
 	
-	{//초기화
-		bookList.add(new Book(1,"나비", "상우", "다람쥐", true));
-		bookList.add(new Book(2,"벌레", "지우", "사슴", true));
-		
-		int i = 0;
-		for(Book b : bookList) {
-			b.setbNum(++i);
-		}
-	}
-
-	
 	public BookDao() {
-		try (ObjectOutputStream bookSave = new ObjectOutputStream(new FileOutputStream("booklist.dat",true))) {
-
-			for (int i = 0; i < bookList.size(); i++) {
-				bookSave.writeObject(bookList.get(i));
-			}
-			System.out.println("Book.list.dat에 성공적으로 저장되었습니다.");
-
-		} catch (FileNotFoundException e) {
-			System.out.println("파일을 찾을 수 없습니다.");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-
-
-	public void BookDaoOpen() {
 		try (ObjectInputStream bookOpen = new ObjectInputStream(new FileInputStream("booklist.dat"))) {
-			int value = 0;
-			while ((value = bookOpen.read()) != -1) {
-				bookList.add((Book) (bookOpen.readObject()));
-
-			}
+			
+			bookList.addAll((ArrayList<Book>)bookOpen.readObject());
 
 		} catch (ClassNotFoundException e) {
-
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			System.out.println("파일을 찾을 수 없습니다.");
@@ -63,10 +29,19 @@ public class BookDao {
 		} catch (IOException e) {
 
 			e.printStackTrace();
-
 		}
+	}
+
+	public void BookDaoOpen() {
+		try (ObjectOutputStream bookSave = new ObjectOutputStream(new FileOutputStream("booklist.dat"))) {
+				bookSave.writeObject(bookList);
 			
-		
+		} catch (FileNotFoundException e) {
+			System.out.println("파일을 찾을 수 없습니다.");
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Book bNum(int no) {
@@ -88,7 +63,7 @@ public class BookDao {
 
 	public void insertBook(Book book) {// 도서 추가
 		bookList.add(book);
-		
+		BookDaoOpen();
 	}
 	
 	public void updateTitle(int no, String title) {// 도서 제목 수정
@@ -96,37 +71,44 @@ public class BookDao {
 		for(int i = 0; i < bookList.size(); i++) {
 			if(bookList.get(i).getbNum() == no) {
 				bookList.get(i).setTitle(title);
+				BookDaoOpen();
 				break;
 				}
 		}
-			
-	
 	}
 	
 	public void updateAuthor(int no, String author) { // 도서 작가 수정
-		
 
 		for(int i = 0; i < bookList.size(); i++) {
 			if(bookList.get(i).getbNum() == no) {
 				bookList.get(i).setAuthor(author);
+				BookDaoOpen();
 				break;
-				}
+			}
 		}
-			
 	}
-	
-
 
 	public void updatePublisher(int no, String publisher) { //도서 출판사 수정
 
 		for(int i = 0; i < bookList.size(); i++) {
 			if(bookList.get(i).getbNum() == no) {
-				bookList.get(i).setTitle(publisher);
+				bookList.get(i).setPublisher(publisher);
+				BookDaoOpen();
 				break;
-				}
+			}
 		}
 	}
+	
+	public void updateRent(int no, boolean rent) { //도서 상태 변경
 		
+		for(int i = 0; i < bookList.size(); i++) {
+			if(bookList.get(i).getbNum() == no) {
+				bookList.get(i).setRent(rent);
+				BookDaoOpen();
+				break;
+			}
+		}
+	}
 
 	// 도서의 마지막 번호 얻어오기
 	public int getLastBoardNo() {
@@ -134,19 +116,28 @@ public class BookDao {
 		return bookList.get(bookList.size() - 1).getbNum();
 	}
 
+	public ArrayList<Book> searchBook(String keyWord) {//도서 검색
+		
+		ArrayList<Book> searchList = new ArrayList<Book>();
+
+		for (int i = 0; i < bookList.size(); i++) {
+			if (bookList.get(i).getTitle().contains(keyWord)||bookList.get(i).getAuthor().contains(keyWord)) {
+				searchList.add(bookList.get(i));
+				
+			}
+		}
+		return searchList;
+	}
 	
-
 	public void deleteBook(int no) {// 도서 삭제
-
+		
 		for (int i = 0; i < bookList.size(); i++) {
 			if (bookList.get(i).getbNum() == no) {
 				bookList.remove(i);
-
+				BookDaoOpen();
 			}
 		}
-
+		
 	}
-
-
-
+	
 }
