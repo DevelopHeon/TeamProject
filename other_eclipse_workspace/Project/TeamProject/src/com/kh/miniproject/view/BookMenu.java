@@ -133,7 +133,6 @@ public class BookMenu {
 
 	}
 		
-
 	private void deleteBook() {//도서 삭제
 		System.out.println("도서 번호 : ");
 		int bNum = sc.nextInt();
