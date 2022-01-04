@@ -53,8 +53,7 @@ public class NoticeMenu {
 				break;
 				
 			}
-			
-			
+
 		}
 	}
 
