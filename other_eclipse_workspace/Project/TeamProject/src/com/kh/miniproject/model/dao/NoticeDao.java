@@ -137,7 +137,7 @@ public class NoticeDao {
 		return notice;
 	}
 
-	// 6. 공지사항 저장하기
+	// 공지사항 저장하기
 	public void fileSave() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("noticeFile.dat"))) {
 			// 저장 될 공지사항 출력해준다.

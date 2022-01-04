@@ -98,7 +98,7 @@ public class NoticeController {
 
 		System.out.print("공지사항 내용 : ");
 		String content = sc.nextLine();
-
+		
 		try {
 			nd.writeNotice(new Notice(nd.getLastNoticeNo() + 1, title, content));
 		} catch (IndexOutOfBoundsException e) {
