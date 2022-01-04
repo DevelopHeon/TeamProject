@@ -19,21 +19,18 @@ public class NoticeMenu {
 	// 공지 사항 관리.
 	public void noticeManagement() {
 
-<<<<<<< HEAD
+
 		
 		while(true) {
-=======
-		while (true) {
->>>>>>> refs/heads/master
+
 			System.out.println("===== 공지 게시판 =====");
 			System.out.println("1. 공지사항 전체 조회");
 			System.out.println("2. 공지사항 등록");
 			System.out.println("3. 공지사항 수정");
 			System.out.println("4. 공지사항 삭제");
 			System.out.println("5. 공지사항 한 개 보기");
-			System.out.println("6. 파일에 저장하기 ");
-			System.out.println("7. 정렬하기 ");
-			System.out.println("8. 공지사항 전체 삭제 ");
+			System.out.println("6. 정렬하기 ");
+			System.out.println("7. 공지사항 전체 삭제 ");
 			System.out.println("0. 이전 메뉴로");
 			System.out.println("원하시는 메뉴를 입력하세요.");
 			int menu = sc.nextInt();
@@ -56,12 +53,9 @@ public class NoticeMenu {
 				nc.oneList();
 				break;
 			case 6:
-				nc.fileSave();
-				break;
-			case 7:
 				noticesort();
 				break;
-			case 8:
+			case 7:
 				nc.allClear();
 				break;
 			case 0:

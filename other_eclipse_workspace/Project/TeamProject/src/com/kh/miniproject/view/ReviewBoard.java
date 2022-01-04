@@ -12,7 +12,7 @@ public class ReviewBoard {
 	public ReviewBoard() { //기본생성자
 	}
 
-	public void ReviewBoard() {
+	public void ReviewMenu() {
 		
 		//==== 리뷰 메뉴 ==== //무한 반복 실행
 		//1. 리뷰 게시판 조회
@@ -60,10 +60,10 @@ public class ReviewBoard {
 				break;
 			case 0 :
 				System.out.println("이전 메뉴로 돌아갑니다.");
-				break;
+				return;
 			case 9 :
 				System.out.println("프로그램을 종료합니다.");
-				return;
+				System.exit(0);
 			default :
 				System.out.println("번호를 잘못 입력하셨습니다. 다시 입력해주세요.");
 				break;

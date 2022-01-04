@@ -1,7 +1,6 @@
 package com.kh.miniproject.model.vo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Delivery implements Serializable{

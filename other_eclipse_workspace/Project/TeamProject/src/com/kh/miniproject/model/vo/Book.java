@@ -10,7 +10,6 @@ public class Book implements Serializable{
 
 
 	private int bNum; // 도서 번호 추가함
-
 	
 	private String title;
 	
@@ -23,7 +22,6 @@ public class Book implements Serializable{
 	public Book() {	}
 
 	public Book(int bNum,String title, String author, String publisher, boolean rent) {
-		super();
 		this.bNum = bNum;
 		this.title = title;
 		this.author = author;
@@ -38,8 +36,6 @@ public class Book implements Serializable{
 	public void setbNum(int bNum) {
 		this.bNum = bNum;
 	}
-
-
 
 	public String getTitle() {
 		return title;
@@ -74,13 +70,9 @@ public class Book implements Serializable{
 		this.rent = rent;
 	}
 
-
 	@Override
 	public String toString() {
 
-		
-
-		
 		String rentA ="";
 		if(rent) {
 			rentA ="가능";
