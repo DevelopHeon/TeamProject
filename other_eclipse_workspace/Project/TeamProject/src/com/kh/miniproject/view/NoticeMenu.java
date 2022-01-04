@@ -66,11 +66,22 @@ public class NoticeMenu {
 				System.out.println("잘못된 메뉴입니다. 재입력 해주세요.");
 				break;
 
+<<<<<<< HEAD
 			}
 
 		}
 	}
 
+=======
+				
+			}
+
+		}
+	}
+
+
+			
+>>>>>>> branch 'master' of https://github.com/DevelopHeon/TeamProject.git
 	//7. 정렬하기 Comparator 클래스 생성하고 불러온다.
 	public void noticesort() {
 		System.out.println("<정렬 할 메뉴 선택>");
