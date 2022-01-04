@@ -1,9 +1,13 @@
 package com.kh.miniproject.model.vo;
 
-public class Book {
-	
+import java.io.Serializable;
 
-	
+public class Book implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4197926003136284548L;
+
 
 	private int bNum; // 도서 번호 추가함
 
@@ -18,9 +22,9 @@ public class Book {
 	
 	public Book() {	}
 
-	public Book(String title, String author, String publisher, boolean rent) {
+	public Book(int bNum,String title, String author, String publisher, boolean rent) {
 		super();
-		
+		this.bNum = bNum;
 		this.title = title;
 		this.author = author;
 		this.publisher = publisher;

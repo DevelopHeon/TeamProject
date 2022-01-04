@@ -38,6 +38,7 @@ public class LoginDao {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
 
 	public void LoginDaoSave() {
 		
@@ -46,6 +47,16 @@ public class LoginDao {
 			while (true) {
 				
 				memList.add((Member) logInOpen.readObject());
+=======
+	
+	public void LoginDaoOpen() {
+		
+		try(ObjectInputStream logInOpen = new ObjectInputStream(new FileInputStream("Member.dat"))){			
+			int i =0;
+			
+			while(true) {
+				memList.add((Member)logInOpen.readObject());
+>>>>>>> refs/heads/master
 				i++;
 			}
 		} catch (EOFException e) {
@@ -78,9 +89,15 @@ public class LoginDao {
 	}
 
 
+<<<<<<< HEAD
 	} 
 	
 
 	
 	
 
+=======
+	}
+
+	
+>>>>>>> refs/heads/master

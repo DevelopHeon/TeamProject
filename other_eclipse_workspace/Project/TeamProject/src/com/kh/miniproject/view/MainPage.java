@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.kh.miniproject.controller.MemberController;
+import com.kh.miniproject.controller.NoticeController;
 import com.kh.miniproject.model.dao.LoginDao;
 import com.kh.miniproject.model.vo.Member;
 
@@ -18,7 +19,7 @@ public class MainPage {
 	MemberController mc = new MemberController();
 	ManagerLogin mal = new ManagerLogin();
 	MemberPage mp = new MemberPage();
-	NoticeMenu nm = new NoticeMenu();
+	NoticeController nc = new NoticeController();
 	LoginDao ld = new LoginDao();
 
 	MemberPage mem = new MemberPage();
@@ -48,7 +49,7 @@ public class MainPage {
 				mc.join();
 				break;
 			case 4:
-				nm.selectList();
+				nc.noticeAllList();
 				break;
 			case 9:
 				System.out.println("프로그램을 종료합니다.");
