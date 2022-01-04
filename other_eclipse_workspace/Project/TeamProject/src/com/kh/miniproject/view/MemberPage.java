@@ -159,7 +159,7 @@ public class MemberPage {
 			System.out.println("탈퇴할 회원이 존재하지 않습니다.");
 
 		} else {
-			System.out.println("기존 정보 출력 : " + m.information());
+			System.out.println("기존 정보 출력 : " + memberInfo.toString());
 
 			System.out.println("정말 탈퇴하시겠습니까? (y/n) ");
 			char ch = sc.nextLine().toUpperCase().charAt(0);
