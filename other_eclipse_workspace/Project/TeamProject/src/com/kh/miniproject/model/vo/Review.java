@@ -1,7 +1,6 @@
 package com.kh.miniproject.model.vo;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Review implements Comparable<Review>, Serializable{
 	

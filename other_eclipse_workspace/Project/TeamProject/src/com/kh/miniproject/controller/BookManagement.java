@@ -10,45 +10,26 @@ import com.kh.miniproject.model.vo.Book;
 import com.kh.miniproject.model.vo.Delivery;
 
 public class BookManagement{
-	public ArrayList<Book> bookList = new ArrayList<Book>();
-	Scanner sc = new Scanner(System.in);
-	private MemberController mc = new MemberController();
 	
-	BookDao bd = new BookDao();
-	//수정
+	public ArrayList<Book> bookList = new ArrayList<Book>();
+	
 	private DeliveryDao dd = new DeliveryDao();
-	//
+	private BookDao bd = new BookDao();
+	
+	Scanner sc = new Scanner(System.in);
+	
 	public BookManagement() {}
 
-	
-	
-	
 	public void selectAll() {// 도서 전체 조회
+		bookList = bd.selectAll();
 		
 		Iterator it = bd.selectAll().iterator();
 		while(it.hasNext()) {
 			System.out.println(it.next());
 		}
-		while(true) {
-			System.out.println("도서 관리 메뉴로 돌아가시겠습니까(y/n) : ");
-			String str =sc.nextLine();
-			if(str.equalsIgnoreCase("y")) {
-				return;
-			}else if(str.equalsIgnoreCase("n")){
-				System.out.println("프로그램을 종료합니다.");
-				System.exit(0);
-				
-			}else {
-				System.out.println("문자를 잘못입력하셨습니다. 다시 입력해주세요.");
-			}
-		}
-		
-		
 	}
-	
 
 	public void insertBook() {//도서 추가
-		
 		
 		System.out.println("도서 제목 : ");
 		String title = sc.nextLine();
@@ -59,16 +40,15 @@ public class BookManagement{
 		
 		try { //1) 기존의 게시글이 있을 경우(파일이 존재할 경우)
 			bd.insertBook(new Book(bd.getLastBoardNo() + 1, title, author, publisher, true));
+			
 		}catch(IndexOutOfBoundsException e ) {//2) 기존의 게시글이 없을 경우(파일이 존재하지 않을 경우)
 			bd.insertBook(new Book(1, title, author, publisher,true));
 		}
-		
-		
-	
 	}
 
 	public void updateTitle() {// 도서 제목 수정
-	
+		bookList = bd.selectAll();
+		
 		System.out.print("수정할 도서 번호 : ");
 		int no = sc.nextInt();
 		sc.nextLine();
@@ -86,6 +66,7 @@ public class BookManagement{
 	}
 	
 	public void updateAuthor() {
+		bookList = bd.selectAll();
 		
 		System.out.print("수정할 도서 번호 : ");
 		int no = sc.nextInt();
@@ -103,10 +84,8 @@ public class BookManagement{
 		}
 	}
 	
-
-
 	public void updatePublisher() { //도서 출판사 수정
-		
+		bookList = bd.selectAll();
 
 		System.out.print("수정할 도서 번호 : ");
 		int no = sc.nextInt();
@@ -123,10 +102,10 @@ public class BookManagement{
 			bd.updatePublisher(no,publisher);
 		}
 	}
-		
-
 	
 	public void deleteBook() { // 도서 삭제 
+		bookList = bd.selectAll();
+		
 		System.out.print("삭제할 도서 번호 : ");
 		int no = sc.nextInt();
 		sc.nextLine();
@@ -145,25 +124,8 @@ public class BookManagement{
 		}
 	}
 
-
-
-
-
-public ArrayList<Book> searchBook(String keyWord) { // 도서 검색
-
-		ArrayList<Book> searchList = new ArrayList<Book>();
-
-		for (Book b : bookList) {
-			if (b.getTitle().contains(keyWord)) {
-				searchList.add(b);
-			}else if (b.getAuthor().contains(keyWord)) {
-				searchList.add(b);
-			}
-		}
-		return searchList;
-	}
-
 	public void rentBook(int num) {//1. 도서 대여
+		bookList = bd.selectAll();
 		for (Book b : bookList) {
 			if (b.getbNum() == num) { // num과 책의 bNo이 일치하는 경우
 				if (b.isRent()) { // isRent가 true(대여가능)인 경우
@@ -224,11 +186,6 @@ public ArrayList<Book> searchBook(String keyWord) { // 도서 검색
 				
 				}
 			}
-			
-				
-			
-			
-			
 		
 	}
 
@@ -257,8 +214,6 @@ public ArrayList<Book> searchBook(String keyWord) { // 도서 검색
 			}
 		}catch(NullPointerException e) {
 			System.out.println("수취인 정보가 없습니다.");
-		}finally {
-			
 		}
 	}
 
@@ -269,6 +224,8 @@ public ArrayList<Book> searchBook(String keyWord) { // 도서 검색
 	}
 
 	public void deleteInfo(String name) {//2-2. 배송 취소
+		bookList = bd.selectAll();
+		
 		System.out.println("주문을 취소하시겠습니까? (Y/N)");
 		String result = sc.nextLine();
 		if (result.equalsIgnoreCase("Y")) {
@@ -277,7 +234,7 @@ public ArrayList<Book> searchBook(String keyWord) { // 도서 검색
 			int booknum= dd.searchInfo(name).getBook().getbNum();
 			for (Book b : bookList) {
 				if(b.getbNum()==booknum) {
-					b.setRent(true);
+					bd.updateRent(booknum, true);
 				}
 			}
 			

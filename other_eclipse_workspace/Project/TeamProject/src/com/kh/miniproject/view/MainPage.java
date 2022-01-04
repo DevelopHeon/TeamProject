@@ -5,24 +5,20 @@ import java.util.Scanner;
 import com.kh.miniproject.controller.MemberController;
 import com.kh.miniproject.controller.NoticeController;
 import com.kh.miniproject.model.dao.LoginDao;
-import com.kh.miniproject.model.vo.Member;
 
 public class MainPage {
 
-	public MainPage() {
-
-	}
+	public MainPage() {}
 
 	private Scanner sc = new Scanner(System.in);
 
-	MemberController mc = new MemberController();
-	ManagerLogin mal = new ManagerLogin();
-	MemberPage mp = new MemberPage();
-	NoticeController nc = new NoticeController();
-	LoginDao ld = new LoginDao();
+	private MemberController mc = new MemberController();
+	private NoticeController nc = new NoticeController();
+	private ManagerLogin mal = new ManagerLogin();
+	private MemberPage mp = new MemberPage();
+	private LoginDao ld = new LoginDao();
 
-	MemberPage mem = new MemberPage();
-
+							
 	public void mainMenu() {
 
 		while (true) {
@@ -42,10 +38,10 @@ public class MainPage {
 				mal.managerMainMenu();
 				break;
 			case 2:
-				login();
+				mp.memberMainMenu();
 				break;
 			case 3:
-				join();
+				mc.join();
 				break;
 			case 4:
 				nc.noticeAllList();
@@ -57,62 +53,6 @@ public class MainPage {
 				System.out.println("잘못 입력하셨습니다. 메뉴를 다시 선택해주세요.");
 				break;
 			}
-
 		}
-
-	}
-
-	public void login() {
-
-		System.out.println("id :");
-		String id = sc.nextLine();
-
-		System.out.println("pwd :");
-		String pwd = sc.nextLine();
-
-		int result = ld.login(id, pwd);
-		
-		if (result == 1) {
-			mp.memberMainMenu();
-		} else {
-			System.out.println("로그인에 실패하였습니다.");
-		}
-
-	}
-
-	public void join() {
-		// 아이디 입력
-		System.out.println("아이디 :");
-		String id = sc.nextLine();
-
-		// 중복 아이디 확인
-		Member m = mc.checkId(id);
-		if (m != null) {
-			System.out.println("동일한 아이디가 존재합니다.");
-
-		} else {
-			System.out.println("비밀번호 : ");
-			String pwd = sc.nextLine();
-
-			System.out.print("이름 : ");
-			String name = sc.nextLine();
-
-			System.out.print("나이 : ");
-			int age = sc.nextInt();
-			sc.nextLine();
-
-			System.out.print("성별 : ");
-			char gender = sc.nextLine().charAt(0);
-
-			System.out.println("주소 :");
-			String address = sc.nextLine();
-			System.out.println("휴대폰 번호 : ");
-			String phoneNum = sc.nextLine();
-
-			Member newMember = new Member(id, pwd, name, age, gender, address, phoneNum);
-
-			ld.addMember(newMember);
-		}
-
 	}
 }

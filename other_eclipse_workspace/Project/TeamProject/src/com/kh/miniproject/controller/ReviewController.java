@@ -215,12 +215,6 @@ public class ReviewController {
 
 	}
 
-	public void saveReviewFile() {
-		
-		rd.saveReviewFile();
-		
-	}
-
 }	
 
 	

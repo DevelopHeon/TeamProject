@@ -13,18 +13,21 @@ import com.kh.miniproject.model.vo.Review;
 
 public class ReviewDao {
 	
+
 ArrayList<Review> rList = new ArrayList<Review>();
 
 	//파일 불러오기
+
 	public ReviewDao() {
 		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("review_list.dat"))) {
+
 			
 		rList.addAll((ArrayList<Review>)ois.readObject());
 		
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
 		}catch(FileNotFoundException e) {
-			
+			e.printStackTrace();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -92,7 +95,7 @@ ArrayList<Review> rList = new ArrayList<Review>();
 		}
 		review.setRNo(lastNo);
 		rList.add(review);
-	
+		saveReviewFile();
 	}
 	
 	//제목 수정
@@ -103,7 +106,8 @@ ArrayList<Review> rList = new ArrayList<Review>();
 				rList.get(i).setTitle(title);
 				break;
 			}
-		}			
+		}	
+		saveReviewFile();
 	}
 
 	public void updateContent(int no, String content) {
@@ -114,6 +118,7 @@ ArrayList<Review> rList = new ArrayList<Review>();
 				break;
 			}
 		}	
+		saveReviewFile();
 	}
 	
 	//리뷰 삭제
@@ -129,6 +134,7 @@ ArrayList<Review> rList = new ArrayList<Review>();
 			re.setRNo(index++); //넣어주고 후증가
 		}
 		Collections.sort(rList);//오름차순 정렬
+		saveReviewFile();
 	}
 	
 			
