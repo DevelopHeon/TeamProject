@@ -14,28 +14,10 @@ import com.kh.miniproject.model.vo.Review;
 public class ReviewDao {
 	
 ArrayList<Review> rList = new ArrayList<Review>();
-	
-	//vo클래스 자료형을 임시로 저장할 컬렉션(ArrayList)
-	{ //초기화블록
-		//임시로 리뷰 데이터 넣어보기 (제목, 리뷰)
-//		rList.add(new Review("abc", "개미", "정말 재미있어요! 추천합니다."));
-//		rList.add(new Review("def","불편한 편의점", "감동적이에요."));
-//		rList.add(new Review("ghi", "과학 이야기", "내용이 어려워요."));
-//		rList.add(new Review("jkl", "옷소매 붉은 끝동", "엄청 몰입해서 읽었어요."));
-		
-		//for문 돌려서 배열의 리뷰 번호 1증가 시킴
-		int i = 1;
-		for(Review r : rList) {
-			r.setRNo(i++); 
-		}
-	}
-	
+
+	//파일 불러오기
 	public ReviewDao() {
 		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("review_list.dat"))) {
-			
-		//while(true) {
-		//	rList.add((Review)(ois.readObject()));
-		//}
 			
 		rList.addAll((ArrayList<Review>)ois.readObject());
 		
@@ -100,14 +82,17 @@ ArrayList<Review> rList = new ArrayList<Review>();
 		// 새로운 리뷰가 추가될 때마다 추가되는 리뷰의 리뷰번호는
 		// 리스트 마지막 리뷰 번호의 다음 번호로 부여해야 됨
 		
+		int lastNo = 0; // 우선 변수 생성 및 초기화
+		
+		try {
+			lastNo = rList.get(rList.size() - 1).getRNo() + 1; //rList 크기의 -1 -> 마지막 리뷰 번호 +1부터 리뷰가 등록되어야한다.
+			//리스트에 리뷰가 없는 경우
+		} catch(IndexOutOfBoundsException e) {
+			lastNo = 1;
+		}
+		review.setRNo(lastNo);
 		rList.add(review);
 	
-	}
-	
-	// 게시물의 마지막 번호 얻어오기
-	public int getLastBoardNo() {		
-		
-		return rList.get(rList.size()-1).getRNo(); //마지막 번호
 	}
 	
 	//제목 수정
@@ -134,7 +119,7 @@ ArrayList<Review> rList = new ArrayList<Review>();
 	//리뷰 삭제
 	public void deleteReview(int no) {
 		
-		for(int i = 0; i < rList.size(); i++) {
+		for(int i = 1; i < rList.size(); i++) {
 			if(rList.get(i).getRNo() == no) {
 				rList.remove(i);
 			}
@@ -150,9 +135,12 @@ ArrayList<Review> rList = new ArrayList<Review>();
 	//리뷰 저장하고 출력
 	public void saveReviewFile() {
 		
-		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("review_list.dat"))) {
+		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("review_list.dat", true))) {
 			
-			System.out.println(rList);
+			for(int i = 1; i < rList.size(); i++) {
+				System.out.println(rList.get(i));
+			}
+
 			oos.writeObject(rList);
 			
 			System.out.println("성공적으로 저장되었습니다.");

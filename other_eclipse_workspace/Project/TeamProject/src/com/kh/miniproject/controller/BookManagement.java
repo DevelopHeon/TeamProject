@@ -67,10 +67,6 @@ public class BookManagement{
 	
 	}
 
-	
-	
-	
-	
 	public void updateTitle() {// 도서 제목 수정
 	
 		System.out.print("수정할 도서 번호 : ");
