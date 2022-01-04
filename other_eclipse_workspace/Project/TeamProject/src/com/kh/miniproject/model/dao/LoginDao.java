@@ -35,8 +35,10 @@ public class LoginDao {
 	}
 	
 	public void LoginDaoOpen() {
-		try(ObjectInputStream logInOpen = new ObjectInputStream(new FileInputStream("Member.dat"))){
+		
+		try(ObjectInputStream logInOpen = new ObjectInputStream(new FileInputStream("Member.dat"))){			
 			int i =0;
+			
 			while(true) {
 				memList.add((Member)logInOpen.readObject());
 				i++;
@@ -69,5 +71,8 @@ public class LoginDao {
 		}
 		return 0;
 	}
+
+
+	}
+
 	
-}

@@ -129,6 +129,24 @@ public class Member /*extends Admin*/ implements Serializable{
 				+ "]";
 	}
 
+	@Override
+	public int hashCode() {
+		return (id + pwd).hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(!(obj instanceof Member)) {
+			return false;
+		}
+		Member mb = (Member)obj;
+		if(this.id.equals(mb.id) && this.pwd.equals(mb.pwd)) {
+			return true;
+		}
+		return false;
+	}
+
 //	public String information() {
 //		return "id : " + super.getId() + ", pwd : " + super.getPwd() + ", 이름 : " + super.getName() + ", 나이 : " + age
 //				+ ", 성별 : " + gender + ", address : " + address + ", phoneNum : " + phoneNum + ", overdue=" + overdue;
@@ -139,5 +157,7 @@ public class Member /*extends Admin*/ implements Serializable{
 //		 */
 //
 //	}
+	
+	
 
 }
