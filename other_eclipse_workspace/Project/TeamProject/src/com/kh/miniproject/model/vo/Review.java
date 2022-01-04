@@ -1,7 +1,6 @@
 package com.kh.miniproject.model.vo;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Review implements Comparable<Review>, Serializable{
 	
@@ -37,7 +36,7 @@ public class Review implements Comparable<Review>, Serializable{
 		return content;
 	}
 
-	public void setReview(String review) {
+	public void setReview(String content) {
 		this.content = content;
 	}
 	

@@ -13,36 +13,17 @@ import com.kh.miniproject.model.vo.Review;
 
 public class ReviewDao {
 	
-ArrayList<Review> rList = new ArrayList<Review>();
-	
-	//vo클래스 자료형을 임시로 저장할 컬렉션(ArrayList)
-	{ //초기화블록
-		//임시로 리뷰 데이터 넣어보기 (제목, 리뷰)
-//		rList.add(new Review("abc", "개미", "정말 재미있어요! 추천합니다."));
-//		rList.add(new Review("def","불편한 편의점", "감동적이에요."));
-//		rList.add(new Review("ghi", "과학 이야기", "내용이 어려워요."));
-//		rList.add(new Review("jkl", "옷소매 붉은 끝동", "엄청 몰입해서 읽었어요."));
-		
-		//for문 돌려서 배열의 리뷰 번호 1증가 시킴
-		int i = 1;
-		for(Review r : rList) {
-			r.setRNo(i++); 
-		}
-	}
+	ArrayList<Review> rList = new ArrayList<Review>();
 	
 	public ReviewDao() {
 		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("review_list.dat"))) {
-			
-		//while(true) {
-		//	rList.add((Review)(ois.readObject()));
-		//}
-			
-		rList.addAll((ArrayList<Review>)ois.readObject());
+
+			rList.addAll((ArrayList<Review>)ois.readObject());
 		
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
 		}catch(FileNotFoundException e) {
-			
+			e.printStackTrace();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -101,7 +82,7 @@ ArrayList<Review> rList = new ArrayList<Review>();
 		// 리스트 마지막 리뷰 번호의 다음 번호로 부여해야 됨
 		
 		rList.add(review);
-	
+		saveReviewFile();
 	}
 	
 	// 게시물의 마지막 번호 얻어오기
@@ -118,7 +99,8 @@ ArrayList<Review> rList = new ArrayList<Review>();
 				rList.get(i).setTitle(title);
 				break;
 			}
-		}			
+		}	
+		saveReviewFile();
 	}
 
 	public void updateContent(int no, String content) {
@@ -129,6 +111,7 @@ ArrayList<Review> rList = new ArrayList<Review>();
 				break;
 			}
 		}	
+		saveReviewFile();
 	}
 	
 	//리뷰 삭제
@@ -144,6 +127,7 @@ ArrayList<Review> rList = new ArrayList<Review>();
 			re.setRNo(index++); //넣어주고 후증가
 		}
 		Collections.sort(rList);//오름차순 정렬
+		saveReviewFile();
 	}
 	
 			

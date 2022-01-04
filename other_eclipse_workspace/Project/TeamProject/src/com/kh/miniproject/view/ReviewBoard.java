@@ -12,7 +12,7 @@ public class ReviewBoard {
 	public ReviewBoard() { //기본생성자
 	}
 
-	public void ReviewBoard() {
+	public void ReviewMenu() {
 		
 		//==== 리뷰 메뉴 ==== //무한 반복 실행
 		//1. 리뷰 게시판 조회
@@ -30,7 +30,6 @@ public class ReviewBoard {
 			System.out.println("5. 리뷰 제목 수정");
 			System.out.println("6. 리뷰 내용 수정");
 			System.out.println("7. 리뷰 삭제");
-			System.out.println("8. 파일에 저장하기");
 			System.out.println("0. 이전 메뉴로 가기");
 			System.out.println("9. 프로그램 종료");
 			System.out.println("번호를 입력하세요 : ");
@@ -59,15 +58,12 @@ public class ReviewBoard {
 			case 7 :
 				rc.deleteReview(); //리뷰 내용 삭제
 				break;
-			case 8 :
-				rc.saveReviewFile(); //리뷰 파일에 저장
-				break;
 			case 0 :
 				System.out.println("이전 메뉴로 돌아갑니다.");
-				break;
+				return;
 			case 9 :
 				System.out.println("프로그램을 종료합니다.");
-				return;
+				System.exit(0);
 			default :
 				System.out.println("번호를 잘못 입력하셨습니다. 다시 입력해주세요.");
 				break;

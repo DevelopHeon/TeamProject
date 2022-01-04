@@ -14,8 +14,7 @@ public class Notice implements Serializable, Comparable<Notice> {
 	// 공지사항 내용
 	private String noticeContent;
 
-	public Notice() {
-	}
+	public Notice() { }
 
 	public Notice(int noticeNum, String noticeTitle, String noticeContent) {
 		this.noticeNum = noticeNum;

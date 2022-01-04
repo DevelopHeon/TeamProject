@@ -2,10 +2,7 @@ package com.kh.miniproject.view;
 
 import java.util.Scanner;
 
-import com.kh.miniproject.controller.MemberController;
 import com.kh.miniproject.controller.ReviewController;
-import com.kh.miniproject.model.dao.LoginDao;
-
 
 public class ManagerLogin {
 
@@ -18,15 +15,7 @@ public class ManagerLogin {
 	NoticeMenu nc = new NoticeMenu();
 	BookMenu bm = new BookMenu();
 
-	MemberController mc = new MemberController();
-	
-
-	LoginDao ld = new LoginDao();
-
-
-	public ManagerLogin() {
-
-	}
+	public ManagerLogin() { }
 
 	public void managerMainMenu() {
 
@@ -41,9 +30,12 @@ public class ManagerLogin {
 				System.out.println("로그인 성공");
 				break;
 			} else {
-				System.out.println("로그인 실패했습니다. 다시 입력해보세요.");
-				continue;
-
+				System.out.println("로그인 실패했습니다");
+			}
+			System.out.println("다시 시도하시겠습니까? (Y/N)");
+			String num = sc.nextLine();
+			if(num.equalsIgnoreCase("n")) {
+				return;
 			}
 		}
 
@@ -70,7 +62,7 @@ public class ManagerLogin {
 				rc.selectAll();
 				break;
 			case 4:
-				ld.LoginDaoOpen();
+//				ld.LoginDaoOpen();
 				break;
 			case 0:
 				System.out.println("이전 메뉴로 돌아갑니다.");
@@ -81,49 +73,4 @@ public class ManagerLogin {
 			}
 		}
 	}
-
-
-	public void allMember() {
-		System.out.println("=====회원정보조회=====");
-		
-		int cnt = mc.getMemberCount(); 
-		
-		if(cnt == 0){ //회원이 0명이면
-			System.out.println("현재 추가된 회원이 없습니다.");
-			
-			
-		}
-
-	}
-		
-	
-
-	public void overdueMember() {
-	}
-
-	public void reviewBoard() {
-	}
-
-//	// 회원 정보가 저장된 파일을 출력한다.
-//	public void allMember() {
-//
-//		System.out.println("<전체 회원 정보 출력>");
-//		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Member.dat"))) {
-//
-//			while (true) {
-//
-//				System.out.println((Member) ois.readObject());
-//
-//			}
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (FileNotFoundException e) {
-//			System.out.println("출력할 회원 정보가 존재하지 않습니다.");
-//		} catch (EOFException e) {
-//			System.out.println("회원 정보 출력 완료");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 }
