@@ -1,12 +1,8 @@
 package com.kh.miniproject.view;
 
-import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Set;
 
-import com.kh.miniproject.controller.BookManagement;
 import com.kh.miniproject.controller.MemberController;
-import com.kh.miniproject.model.vo.Member;
 
 public class ManagerLogin {
 
@@ -17,7 +13,7 @@ public class ManagerLogin {
 
 	NoticeMenu nc = new NoticeMenu();
 	BookMenu bm = new BookMenu();
-	MemberController am = new MemberController();
+	MemberController mc = new MemberController();
 	
 	public ManagerLogin() {
 
@@ -47,8 +43,8 @@ public class ManagerLogin {
 			System.out.println("1. 공지사항 관리");
 			System.out.println("2. 도서 관리");
 			System.out.println("3. 전체 회원 조회");
-			System.out.println("4. 연체회원 조회");
-			System.out.println("5. 리뷰 게시판 조회");
+			
+			System.out.println("4. 리뷰 게시판 조회");
 			System.out.println("0. 이전 메뉴로");
 			System.out.println("메뉴 선택 : ");
 
@@ -63,12 +59,9 @@ public class ManagerLogin {
 				bm.bookManagement();
 				break;
 			case 3:
-				am.allMember();
+				allMember();
 				break;
 			case 4:
-				overdueMember();
-				break;
-			case 5:
 				reviewBoard();
 				break;
 			case 0:
@@ -82,6 +75,16 @@ public class ManagerLogin {
 	}
 
 	public void allMember() {
+		System.out.println("=====회원정보조회=====");
+		
+		int cnt = mc.getMemberCount(); 
+		
+		if(cnt == 0){ //회원이 0명이면
+			System.out.println("현재 추가된 회원이 없습니다.");
+			
+			
+		}
+
 	}
 		
 	

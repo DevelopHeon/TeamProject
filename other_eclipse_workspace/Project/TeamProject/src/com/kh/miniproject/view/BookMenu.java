@@ -24,8 +24,10 @@ public class BookMenu {
 			System.out.println(" <도서 관리> ");
 			System.out.println("1.도서 전체 조회");
 			System.out.println("2.신규 도서 등록");
-			System.out.println("3.도서 정보 수정");
-			System.out.println("4.도서 삭제");
+			System.out.println("3.도서 제목 수정");
+			System.out.println("4.도서 작가 수정");
+			System.out.println("5.도서 출판사 수정");
+			System.out.println("6.도서 삭제");
 			System.out.println("9.프로그램 종료");
 			System.out.println("메뉴 선택 : ");
 			
@@ -34,19 +36,25 @@ public class BookMenu {
 			
 			switch(menu) {
 			case 1 :
-				selectAll();
+				bm.selectAll(); // 도서 전체 조회
 				break;
 			case 2 :
-				insertBook();
+				bm.insertBook(); // 신규 도서 등록
 				break;
 			case 3 :
-				updateBook();
+				bm.updateTitle(); // 도서 제목 수정
 				break;
 			case 4 :
-				deleteBook();
+				bm.updateAuthor(); // 도서 작가 수정
+				break;
+			case 5 :
+				bm.updatePublisher(); // 도서 출판사 수정
+				break;
+			case 6 :
+				bm.deleteBook(); // 도서 삭제
 				break;
 			case 9 :
-				System.out.println("프로그램을 종료합니다.");
+				System.out.println("프로그램을 종료합니다."); //프로그램 종료
 				System.exit(0);
 				break;
 			default :
@@ -57,6 +65,10 @@ public class BookMenu {
 		}
 	}
 	
+	
+
+
+/*	
 	private void selectAll() {// 도서 전체 조회
 		
 		ArrayList<Book> bookList = bm.selectAll();
@@ -138,8 +150,9 @@ public class BookMenu {
 			System.out.println("삭제할 도서가 존재하지 않습니다.");
 		}
 		
-		
+		*/
 	}
 
+	
+	
 
-}
