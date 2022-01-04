@@ -3,6 +3,7 @@ package com.kh.miniproject.controller;
 import java.util.ArrayList;
 
 import com.kh.miniproject.model.dao.LoginDao;
+import com.kh.miniproject.model.vo.Book;
 import com.kh.miniproject.model.vo.Member;
 
 public class MemberController {
@@ -10,6 +11,7 @@ public class MemberController {
 	public static final int SIZE = 100;
 	private int memberCount;
 	private Member[] mem = new Member[SIZE];
+	
 //	{
 //		mem[0] = new Member("skyblue1", "bcbc", "홍길동", 10, 'M', "서울시 마포구", "010-1234-4567", 0);
 //		mem[1] = new Member("skyblue2", "cdcd", "도라지", 11, 'M', "서울시 용산구", "010-5656-5656", 0);
@@ -105,4 +107,15 @@ public class MemberController {
 		mem[memberCount++] = m;
 	}
 
-}
+	public int getCount() {
+		
+		return memberCount;  
+	}
+
+	
+	
+
+
+	}
+
+
