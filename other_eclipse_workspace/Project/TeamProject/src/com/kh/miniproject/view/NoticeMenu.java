@@ -1,49 +1,66 @@
 package com.kh.miniproject.view;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import com.kh.miniproject.controller.NoticeController;
 import com.kh.miniproject.model.vo.Notice;
 
 public class NoticeMenu {
-	
+
 	Scanner sc = new Scanner(System.in);
 	// 공지사항 게시판 목록
-	ArrayList<Notice> noticeList = new ArrayList<Notice>();
-	
+//	ArrayList<Notice> noticeList = new ArrayList<Notice>();
+
 	NoticeController nc = new NoticeController();
-	
+
 	public NoticeMenu() {
-		
+
 	}
 
 	// 공지 사항 관리.
 	public void noticeManagement() {
-		
-		while(true) {
+
+		while (true) {
 			System.out.println("===== 공지 게시판 =====");
-			System.out.println("1. 공지사항 조회");
+			System.out.println("1. 공지사항 전체 조회");
 			System.out.println("2. 공지사항 등록");
 			System.out.println("3. 공지사항 수정");
 			System.out.println("4. 공지사항 삭제");
+			System.out.println("5. 공지사항 한 개 보기");
+			System.out.println("6. 파일에 저장하기 ");
+			System.out.println("7. 정렬하기 ");
+			System.out.println("8. 공지사항 전체 삭제 ");
 			System.out.println("0. 이전 메뉴로");
 			System.out.println("원하시는 메뉴를 입력하세요.");
 			int menu = sc.nextInt();
 			sc.nextLine();
-			
-			switch(menu) {
+
+			switch (menu) {
 			case 1:
-				selectList();
+				nc.noticeAllList();
 				break;
 			case 2:
-				noticeInsert();
+				nc.noticeInsert();
 				break;
 			case 3:
-				noticeEdit();
+				nc.noticeEdit();
 				break;
 			case 4:
-				noticeDelete();
+				nc.noticeDelete();
+				break;
+			case 5:
+				nc.oneList();
+				break;
+			case 6:
+				nc.fileSave();
+				break;
+			case 7:
+				noticesort();
+				break;
+			case 8:
+				nc.allClear();
 				break;
 			case 0:
 				System.out.println("이전 메뉴로 돌아갑니다.");
@@ -51,72 +68,33 @@ public class NoticeMenu {
 			default:
 				System.out.println("잘못된 메뉴입니다. 재입력 해주세요.");
 				break;
-				
+
 			}
-			
-			
+
 		}
 	}
 
-
-	public void selectList() {
-		// 공지사항 조회 호출
-		ArrayList<Notice> noticeList = nc.selectList();
-		
-		if(noticeList.isEmpty()) { // 공지사항이 비어있을 경우
-			System.out.println("공지 사항이 존재하지 않습니다.");
-		}else {
-			// 비어있지 않다면 for each를 통해 출력
-			for(Notice n : noticeList) {
-				System.out.println(n);
-			}
-		}
-		
-	}
-
-	public void noticeInsert() { // 공지사항 등록
-		
-		System.out.print("공지사항 제목 : ");
-		String title = sc.nextLine();
-		
-		System.out.print("공지사항 내용 : ");
-		String content = sc.nextLine();
-//		sc.nextLine();
-		
-		Notice notice = new Notice(title, content); // 컨트롤러에 위 객체 매개변수로 넘겨준다.
-		nc.insertNotice(notice);
-		
-	}
-	
-	public void noticeEdit() { // 공지사항 수정
-		// 공지사항 수정은 공지사항 번호로 호출하여 수정하도록 작성
-		System.out.println("몇 번째 공지사항을 수정하시겠습니까 ? ");
-		int num = sc.nextInt();
+	//7. 정렬하기 Comparator 클래스 생성하고 불러온다.
+	public void noticesort() {
+		System.out.println("<정렬 할 메뉴 선택>");
+		System.out.println("1. 제목 오름차순 정렬 ");
+		System.out.println("2. 제목 내림차순 정렬 ");
+		System.out.println("3. 공지사항 번호 오름차순 정렬");
+		System.out.println("4. 공지사항 번호 내림차순 정렬");
+		System.out.println("메뉴를 선택하세요 : ");
+		int menu = sc.nextInt();
 		sc.nextLine();
 		
-		//NoticeController에 있는 메소드에 매개변수로 값을 넘겨준다
-		nc.editNotice(num);
-		
-	}
-	
-	public void noticeDelete() { // 공지사항 삭제
-		
-		System.out.print("삭제할 공지사항 번호를 입력하세요.");
-		int nNo = sc.nextInt();
-		sc.nextLine();
-		
-		// 삭제할 공지사항 번호를 매개변수로 받는 메소드 호출
-		int result = nc.deleteNotice(nNo);
-		
-		if(result == 1) {
-			System.out.println("삭제가 완료 되었습니다.");
-		}else if(result == 2){
-			System.out.println("삭제 취소, 이전 메뉴로 돌아갑니다.");
-		}else if(result == 0) {
-			System.out.println("삭제 할 공지사항이 없습니다.");
+		if(menu == 1) {
+			nc.sortList(1);
+		}else if(menu == 2) {
+			nc.sortList(2);
+		}else if(menu == 3) {
+			nc.sortList(3);
+		}else if(menu == 4) {
+			nc.sortList(4);
 		}else {
-			System.out.println("잘못 입력하여 이전 메뉴로 돌아갑니다.");
+			System.out.println("잘못 입력하셨습니다. 이전메뉴로 돌아갑니다.");
 		}
 	}
-	
 }
