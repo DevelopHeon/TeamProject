@@ -76,11 +76,7 @@ public class NoticeMenu {
 	}
 
 
-			}
-
-		}
-	}
-
+			
 	//7. 정렬하기 Comparator 클래스 생성하고 불러온다.
 	public void noticesort() {
 		System.out.println("<정렬 할 메뉴 선택>");

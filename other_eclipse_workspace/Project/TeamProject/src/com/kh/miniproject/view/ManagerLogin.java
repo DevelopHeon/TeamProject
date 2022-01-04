@@ -1,14 +1,11 @@
 package com.kh.miniproject.view;
 
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.Scanner;
 
+import com.kh.miniproject.controller.MemberController;
+import com.kh.miniproject.controller.ReviewController;
 import com.kh.miniproject.model.dao.LoginDao;
-import com.kh.miniproject.model.vo.Member;
+
 
 public class ManagerLogin {
 
@@ -17,10 +14,15 @@ public class ManagerLogin {
 
 	Scanner sc = new Scanner(System.in);
 
-	ReviewBoard rc = new ReviewBoard();
+	ReviewController rc = new ReviewController();
 	NoticeMenu nc = new NoticeMenu();
 	BookMenu bm = new BookMenu();
+
+	MemberController mc = new MemberController();
+	
+
 	LoginDao ld = new LoginDao();
+
 
 	public ManagerLogin() {
 
@@ -65,10 +67,10 @@ public class ManagerLogin {
 				bm.bookManagement();
 				break;
 			case 3:
-				ld.LoginDaoOpen();
+				rc.selectAll();
 				break;
 			case 4:
-				rc.selectAll();
+				ld.LoginDaoOpen();
 				break;
 			case 0:
 				System.out.println("이전 메뉴로 돌아갑니다.");
@@ -78,6 +80,28 @@ public class ManagerLogin {
 				break;
 			}
 		}
+	}
+
+
+	public void allMember() {
+		System.out.println("=====회원정보조회=====");
+		
+		int cnt = mc.getMemberCount(); 
+		
+		if(cnt == 0){ //회원이 0명이면
+			System.out.println("현재 추가된 회원이 없습니다.");
+			
+			
+		}
+
+	}
+		
+	
+
+	public void overdueMember() {
+	}
+
+	public void reviewBoard() {
 	}
 
 //	// 회원 정보가 저장된 파일을 출력한다.
@@ -101,4 +125,5 @@ public class ManagerLogin {
 //			e.printStackTrace();
 //		}
 //	}
+
 }
