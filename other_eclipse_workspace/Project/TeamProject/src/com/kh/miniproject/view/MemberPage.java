@@ -126,7 +126,7 @@ public class MemberPage {
 
 			} else {
 
-				System.out.println("기존 정보 : " + m.information()); // 우선 현재 회원의 기존 정보 출력
+				System.out.println("기존 정보 : " + m.toString()); // 우선 현재 회원의 기존 정보 출력
 
 				System.out.print("\n변경 내용 : ");
 				String edit = sc.nextLine(); // 수정할 값 입력받기
@@ -144,7 +144,7 @@ public class MemberPage {
 	private void memberprint() {
 		int i = 0;
 		Member[] mem = mc.getMem();
-		System.out.println(mem[i].information());
+		System.out.println(mem[i].toString());
 		if (mem[i] == null) {
 			System.out.println("이미 탈퇴한 회원입니다.");
 		}
@@ -159,7 +159,7 @@ public class MemberPage {
 			System.out.println("탈퇴할 회원이 존재하지 않습니다.");
 
 		} else {
-			System.out.println("기존 정보 출력 : " + m.information());
+			System.out.println("기존 정보 출력 : " + m.toString());
 
 			System.out.println("정말 탈퇴하시겠습니까? (y/n) ");
 			char ch = sc.nextLine().toUpperCase().charAt(0);

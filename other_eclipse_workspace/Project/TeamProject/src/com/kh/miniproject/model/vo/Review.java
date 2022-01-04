@@ -1,7 +1,14 @@
 package com.kh.miniproject.model.vo;
 
-public class Review {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Review implements Comparable<Review>, Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3792294248808941040L; //직렬화
 	//review에서 사용하는 변수는 제목이랑, 리뷰(본문) 두 개 
 	//private String userId;
 	private String userId;
@@ -53,7 +60,13 @@ public class Review {
 
 	@Override
 	public String toString() {
-		return   userId + "\t" + rNo + ". 제목 : " + title + "\t" + " 리뷰 내용 : " + review;
+		return rNo + ". 제목 : " + title + "\t" + " 리뷰 내용 : " + review;
 	}
 
+	@Override
+	public int compareTo(Review r) {
+		
+		return this.rNo - r.rNo;
+	}
+	
 }
