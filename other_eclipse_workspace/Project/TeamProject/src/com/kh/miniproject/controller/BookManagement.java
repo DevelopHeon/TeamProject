@@ -1,12 +1,12 @@
 package com.kh.miniproject.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
+import com.kh.miniproject.model.dao.DeliveryDao;
 import com.kh.miniproject.model.dao.LoginDao;
 import com.kh.miniproject.model.vo.Book;
+import com.kh.miniproject.model.vo.Delivery;
 
 public class BookManagement{
 	private ArrayList<Book> bookList = new ArrayList<Book>();
@@ -14,7 +14,7 @@ public class BookManagement{
 	private MemberController mc = new MemberController();
 	private LoginDao ld = new LoginDao();
 	//수정
-	private ArrayList<Book> rentBook = new ArrayList<Book>();//렌트한 책 담을 리스트
+	private DeliveryDao dd = new DeliveryDao();
 	//
 	public BookManagement() {}
 
@@ -99,43 +99,32 @@ public class BookManagement{
 		for (Book b : bookList) {
 			if (b.getTitle().contains(keyWord)) {
 				searchList.add(b);
-			}
-			if (b.getAuthor().contains(keyWord)) {
+			}else if (b.getAuthor().contains(keyWord)) {
 				searchList.add(b);
 			}
 		}
 		return searchList;
 	}
 
-	public void rentBook(int num) {
+	public void rentBook(int num) {//1. 도서 대여
 		for (Book b : bookList) {
 			if (b.getbNum() == num) { // num과 책의 bNo이 일치하는 경우
 				if (b.isRent()) { // isRent가 true(대여가능)인 경우
-					System.out.println("<" + b.getTitle() + ">을(를) 대여하시겠습니까? (y/n)");
+					
+					System.out.println("<" + b.getTitle() + ">을(를) 대여하시겠습니까? (Y/N)");
 					String result = sc.nextLine();
-
-					if (result.equalsIgnoreCase("Y")) {
+					
+					if (result.equalsIgnoreCase("Y")) { //Y선택한 경우
 						b.setRent(false);// 해당 도서를 false(대여불가능)으로 수정
 						System.out.println("<" + b.getTitle() + ">의 대여가 완료되었습니다.");
 						
-//						System.out.println(ld.nowUser.toString());
-						rentBook.add(b);// +회원 정보에 대여 기록 추가하기
-
-						Date today = new Date();
-						int year = today.getYear();
-						int month = today.getMonth();
-						int date = today.getDate();
-						Date dueDay = new Date(year, month, date + 7);// 대여일 +7일
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-
-						System.out.println("[반납일] " + sdf.format(dueDay));
-
-						System.out.println("[배달 주소] "/*user.getAddress()*/);//왜 주소가 비어있는지 문제 해결
-
-					} else { // 대여 취소
+						infoInput(b);//배송 정보 입력
+						
+					} else { //Y가 아닌 경우대여 취소
 						System.out.println("<" + b.getTitle() + ">의 대여가 취소되었습니다.");
 					}
 
+					//도서 추천
 					for (Book a : bookList) {
 						if (a.getbNum() != b.getbNum()) {// 같은 책은 제외하고
 							if (a.getAuthor().equals(b.getAuthor())) {// 같은 작가의 책중에
@@ -152,22 +141,93 @@ public class BookManagement{
 		}
 	}
 	
-	public void rentList() {
-		//rentBook으로 수정
-		for (Book b : rentBook) {// 대여중 도서 목록 출력 (각 회원의 대여 정보랑 연동이 되어야 함)
-			if (!b.isRent()) {// 수정 전 임시로 대여중인 책 전권 출력
-				System.out.println(b);
+	public void infoInput(Book book) {//1-1.베송 정보 입력
+
+			System.out.println("배송받을 사람의 이름을 입력하세요.");
+			String name = sc.nextLine();
+			System.out.println("배송받을 주소를 입력해 주세요.");
+			String address = sc.nextLine();
+			
+			Delivery info = new Delivery(name, address, book);//입력 정보들로 객체 생성
+			
+			ArrayList<Delivery> check =dd.displayAll();//저장된 정보를 check에 담아서
+			
+			if(check.size()==0) {
+				dd.addInfo(info);
+			}else {
+				for(int i = 0; i<check.size();i++) {//check과 info를 비교해서
+					if(!check.get(i).equals(info)) {//중복이 아니라면
+						dd.addInfo(info);//dao에 정보 추가
+						return;
+					}else{
+					book.setRent(true);//대출가능으로 다시 바꾸기
+						System.out.println("주문 기록이 이미 있습니다.");
+						return;
+					}
+				
+				}
 			}
+			
+				
+			
+			
+			
+		
+	}
+
+	public void infoCheck(String name) {//2.배송 조회
+	
+		try {
+			Delivery check = dd.searchInfo(name);
+			if(check.getName().equals(name)) {
+				System.out.println(check.toString());//검색 결과 출력
+				
+				//배송 수정, 취소
+				System.out.println("1. 배송 정보 수정");
+				System.out.println("2. 배송 취소");
+				System.out.println("0. 이전 메뉴로 가기");
+				int num = sc.nextInt();sc.nextLine();
+				switch(num) {
+				case 1: modifyInfo(name);
+				break;
+				case 2: deleteInfo(name);
+				break;
+				case 0 :
+					return;
+				default : System.out.println("잘못 입력하셨습니다. 메뉴를 다시 선택해주세요.");
+				break;
+				}
+			}
+		}catch(NullPointerException e) {
+			System.out.println("수취인 정보가 없습니다.");
+		}finally {
+			
 		}
 	}
 
-	public void bookReturn(int num) {
-		for (Book b : bookList) {
-			if (b.getbNum() == num) {// num과 같은 번호의 책
-				b.setRent(true);// true (대여 가능)
-				System.out.println("<" + b.getTitle() + ">을(를) 반납하셨습니다.");
-			}
-		}
+	public void modifyInfo(String name) {//2-1 배송 정보 수정
+		System.out.println("새로운 주소를 입력해 주세요.");
+		String address = sc.nextLine();
+		dd.modifyAddress(name, address);
 	}
 
+	public void deleteInfo(String name) {//2-2. 배송 취소
+		System.out.println("주문을 취소하시겠습니까? (Y/N)");
+		String result = sc.nextLine();
+		if (result.equalsIgnoreCase("Y")) {
+			
+			//책을 대여가능으로 전환
+			int booknum= dd.searchInfo(name).getBook().getbNum();
+			for (Book b : bookList) {
+				if(b.getbNum()==booknum) {
+					b.setRent(true);
+				}
+			}
+			
+			dd.deleteInfo(name);//정보 삭제
+			
+		}else {
+			System.out.println("이전 메뉴로 돌아갑니다.");
+		}
+	}
 }
