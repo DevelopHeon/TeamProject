@@ -17,7 +17,7 @@ public class Review implements Comparable<Review>, Serializable{
 		
 	public Review() {}
 
-	public Review(int rNo, String userId, String title, String content) {
+	public Review(String userId, String title, String content) {
 		super();
 		this.userId = userId;
 		this.title = title;

@@ -11,6 +11,10 @@ public class ReviewController {
 	ReviewDao rd = new ReviewDao();
 	Scanner sc = new Scanner(System.in);
 	
+	public ReviewController() {
+		//기본 생성자
+	}
+	
 	//리뷰 전체 조회
 	public void selectAll() {
 		System.out.println("< 리뷰 게시판 조회 >");
@@ -106,7 +110,7 @@ public class ReviewController {
 		System.out.println("리뷰 내용(exit 입력 시 종료) : ");
 		String content = sc.nextLine();
 		String str = "";
-		
+
 		while(true) {
 			str = sc.nextLine();
 			
@@ -116,15 +120,10 @@ public class ReviewController {
 			
 			content += str + "\n";
 		}
-			
-		try {
-			rd.writeReview(new Review(rd.getLastBoardNo()+1, userId, title, content));
-			
-		} catch(IndexOutOfBoundsException e) {
-			rd.writeReview(new Review(1, userId, title, content));
-		}
+		
+		Review review = new Review(userId, title, content);
+		rd.writeReview(review);
 
-	
 	}
 	
 	public void updateTitle() { 
@@ -133,31 +132,40 @@ public class ReviewController {
 		String userId = sc.nextLine();
 		
 		ArrayList<Review> checkList = rd.checkId(userId);
-		System.out.println(checkList);
-			
-		System.out.println("수정할 글 번호 : ");
-		int no = sc.nextInt();
-		sc.nextLine();
 		
-		Review review = rd.myReview(no);
-		if(review == null) {
-			System.out.println("조회된 글이 없습니다.");
-		}else {
-			System.out.println(review);
-			
-			System.out.println("변경할 제목 : ");
-			String title = sc.nextLine();
-			rd.updateTitle(no, title);
+		for(int i = 0; i < checkList.size(); i++) {
+			System.out.println(checkList.get(i));
 		}
-	}
-	
+		
+			System.out.println("수정할 글 번호 : ");
+			int no = sc.nextInt();
+			sc.nextLine();
+			
+			Review review = rd.myReview(no);
+			if(review == null) {
+				System.out.println("조회된 글이 없습니다.");
+			}else {
+				
+			for(int i = 0; i < checkList.size(); i++) {
+				System.out.println(checkList.get(i));
+			}
+				
+				System.out.println("변경할 제목 : ");
+				String title = sc.nextLine();
+				rd.updateTitle(no, title);
+			}
+		}
+
 	public void updateContent() {
 		
 		System.out.println("회원 아이디를 입력하세요 : ");
 		String userId = sc.nextLine();
 		
 		ArrayList<Review> checkList = rd.checkId(userId);
-		System.out.println(checkList);
+		
+		for(int i = 0; i < checkList.size(); i++) {
+			System.out.println(checkList.get(i));
+		}
 		
 		System.out.println("수정할 글 번호 : ");
 		int no = sc.nextInt();
@@ -166,9 +174,12 @@ public class ReviewController {
 		Review review = rd.myReview(no);
 		if(review == null) {
 			System.out.println("조회된 글이 없습니다.");
-		}else {		
-			System.out.println(review);
-			
+		}else {	
+			for(int i = 0; i < checkList.size(); i++) {	
+				if(checkList.get(i).getRNo() == no) {
+					checkList.get(i);				
+			}
+		}
 			System.out.println("변경할 내용 : ");
 			String content = sc.nextLine();
 			rd.updateContent(no, content);
