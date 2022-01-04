@@ -31,7 +31,10 @@ public class ReviewController {
 		String userId = sc.nextLine();
 		
 		ArrayList<Review> checkList = rd.checkId(userId);
-		System.out.println(checkList);
+		
+			for(Review r : checkList) {
+				System.out.println(r);
+			}
 
 		if(checkList.isEmpty() == true) {
 			System.out.println("작성한 리뷰가 존재 하지 않습니다.");
@@ -100,14 +103,27 @@ public class ReviewController {
 		System.out.println("책 제목 : ");
 		String title = sc.nextLine();
 		
-		System.out.println("리뷰 내용 : ");
-		String text = sc.nextLine();
+		System.out.println("리뷰 내용(exit 입력 시 종료) : ");
+		String content = sc.nextLine();
+		String str = "";
 		
-		// 위에서 입력 받은 title, text를 매개변수로 한 Review 객체 생성 (review)
-		// ReviewController의 writeReview 메소드로 review 전달
-	
-		Review review = new Review(userId, title, text); //count 
-		rd.writeReview(review);
+		while(true) {
+			str = sc.nextLine();
+			
+			if(str.equals("exit")) {
+				break;
+			}
+			
+			content += str + "\n";
+		}
+			
+		try {
+			rd.writeReview(new Review(rd.getLastBoardNo()+1, userId, title, content));
+			
+		} catch(IndexOutOfBoundsException e) {
+			rd.writeReview(new Review(1, userId, title, content));
+		}
+
 	
 	}
 	
@@ -187,6 +203,13 @@ public class ReviewController {
 		}
 
 	}
+
+	public void saveReviewFile() {
+		
+		rd.saveReviewFile();
+		
+	}
+
 }	
 
 	

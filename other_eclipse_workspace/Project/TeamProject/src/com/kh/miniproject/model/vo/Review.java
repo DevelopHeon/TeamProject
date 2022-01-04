@@ -13,16 +13,16 @@ public class Review implements Comparable<Review>, Serializable{
 	//private String userId;
 	private String userId;
 	private String title;
-	private String review;
+	private String content;
 	private int rNo;
 		
 	public Review() {}
 
-	public Review(String userId, String title, String review) {
+	public Review(int rNo, String userId, String title, String content) {
 		super();
 		this.userId = userId;
 		this.title = title;
-		this.review = review;
+		this.content = content;
 	}
 	
 	public String getTitle() {
@@ -34,11 +34,11 @@ public class Review implements Comparable<Review>, Serializable{
 	}
 
 	public String getReview() {
-		return review;
+		return content;
 	}
 
 	public void setReview(String review) {
-		this.review = review;
+		this.content = content;
 	}
 	
 	public int getRNo() {
@@ -60,7 +60,7 @@ public class Review implements Comparable<Review>, Serializable{
 
 	@Override
 	public String toString() {
-		return rNo + ". 제목 : " + title + "\t" + " 리뷰 내용 : " + review;
+		return rNo + ". 제목 : " + title + "\t" + " 리뷰 내용 : " + content;
 	}
 
 	@Override
