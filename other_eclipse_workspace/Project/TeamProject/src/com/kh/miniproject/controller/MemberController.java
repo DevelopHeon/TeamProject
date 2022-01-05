@@ -42,7 +42,6 @@ public class MemberController {
 					String name = sc.nextLine();
 
 					ld.writeMember(new Member(id, pwd, name));
-					memberAllList(); // 출력시 회원가입한 정보 출력 나옴, 근데 다른데서는 안나옴 이유가?
 					ld.LoginDaoOpen();
 					return;
 				} else { // 반환한 숫자가 1인경우 중복된 아이디 존재 재입력
@@ -91,13 +90,5 @@ public class MemberController {
 		System.out.println("회원탈퇴가 완료 되었습니다. 프로그램을 종료합니다.");
 		System.exit(0);
 
-	}
-
-	// 전체 회원 조회
-	public void memberAllList() {
-		Iterator it = ld.memberAll().iterator();
-		while (it.hasNext()) {
-			System.out.println(it.next());
-		}
 	}
 }
