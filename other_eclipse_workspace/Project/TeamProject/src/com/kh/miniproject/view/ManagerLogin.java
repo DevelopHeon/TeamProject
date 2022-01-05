@@ -7,8 +7,8 @@ import com.kh.miniproject.controller.ReviewController;
 
 public class ManagerLogin {
 
-	public static final String mId = "manager"; // 관리자 아이디와 비밀번호는 상수로 생성
-	public static final String mPwd = "12345";
+	public static final String MID = "manager"; // 관리자 아이디와 비밀번호는 상수로 생성
+	public static final String MPWD = "12345";
 
 	Scanner sc = new Scanner(System.in);
 
@@ -29,7 +29,7 @@ public class ManagerLogin {
 			System.out.println("비밀번호 : ");
 			String pwd = sc.nextLine();
 
-			if (mId.equals(id) && pwd.equals(mPwd)) {
+			if (MID.equals(id) && pwd.equals(MPWD)) {
 				System.out.println("로그인 성공");
 				break;
 			} else {

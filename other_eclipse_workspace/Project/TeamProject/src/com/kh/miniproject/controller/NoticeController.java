@@ -146,7 +146,7 @@ public class NoticeController {
 				System.out.println();
 				System.out.println("관리자의 암호를 입력하세요.");
 				String pwd = sc.nextLine();
-				if(pwd.equals(ManagerLogin.mPwd)) {
+				if(pwd.equals(ManagerLogin.MPWD)) {
 					System.out.println("공지사항을 전부 삭제하시겠습니까? (y/n)");
 					String input = sc.nextLine();
 					

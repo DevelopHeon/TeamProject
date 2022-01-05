@@ -65,6 +65,7 @@ public class DeliveryDao {
 			if(info.get(i).getName().equals(name)) {
 				info.get(i).setAddress(address);
 				System.out.println(info.get(i));
+				DeliverySave();
 				System.out.println("수정이 완료되었습니다.");
 				break;
 			}
@@ -75,6 +76,7 @@ public class DeliveryDao {
 		for(int i =0; i<info.size();i++) {
 			if(info.get(i).getName().equals(name)) {
 				info.remove(i);
+				DeliverySave();
 			}
 		}
 	}

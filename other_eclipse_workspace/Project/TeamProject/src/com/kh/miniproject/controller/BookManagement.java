@@ -124,6 +124,20 @@ public class BookManagement{
 		}
 	}
 
+	public void searchBook(String keyWord) {//0. 도서 검색
+		bookList = bd.searchBook(keyWord);// BookDao의 searchBook호출, 출력
+
+		if (bookList.isEmpty()) {// 검색 결과가 없을 경우
+			System.out.println("검색 결과가 없습니다."); 
+			return;// 출력 후 반복문 호출한 곳으로 돌아감
+		} else {// 검색 결과가 있으면 출력
+			System.out.println("====검색 결과===");
+			for (Book b : bookList) { // 하나씩 출력하기 위한 for문
+				System.out.println(b);
+			}
+		}
+	}
+	
 	public void rentBook(int num) {//1. 도서 대여
 		bookList = bd.selectAll();
 		for (Book b : bookList) {
@@ -134,10 +148,10 @@ public class BookManagement{
 					String result = sc.nextLine();
 					
 					if (result.equalsIgnoreCase("Y")) { //Y선택한 경우
-						b.setRent(false);// 해당 도서를 false(대여불가능)으로 수정
+						bd.updateRent(b.getbNum(), false);// 해당 도서를 false(대여불가능)으로 수정
 						System.out.println("<" + b.getTitle() + ">의 대여가 완료되었습니다.");
-						
 						infoInput(b);//배송 정보 입력
+						
 						
 					} else { //Y가 아닌 경우대여 취소
 						System.out.println("<" + b.getTitle() + ">의 대여가 취소되었습니다.");
@@ -161,32 +175,33 @@ public class BookManagement{
 	}
 	
 	public void infoInput(Book book) {//1-1.베송 정보 입력
-
-			System.out.println("배송받을 사람의 이름을 입력하세요.");
-			String name = sc.nextLine();
-			System.out.println("배송받을 주소를 입력해 주세요.");
-			String address = sc.nextLine();
-			
-			Delivery info = new Delivery(name, address, book);//입력 정보들로 객체 생성
-			
-			ArrayList<Delivery> check =dd.displayAll();//저장된 정보를 check에 담아서
-			
-			if(check.size()==0) {
-				dd.addInfo(info);
-			}else {
-				for(int i = 0; i<check.size();i++) {//check과 info를 비교해서
-					if(!check.get(i).equals(info)) {//중복이 아니라면
-						dd.addInfo(info);//dao에 정보 추가
-						return;
-					}else{
-					book.setRent(true);//대출가능으로 다시 바꾸기
-						System.out.println("주문 기록이 이미 있습니다.");
-						return;
-					}
-				
-				}
-			}
+		Book one = bd.oneBook(book);
 		
+		System.out.println("배송받을 사람의 이름을 입력하세요.");
+		String name = sc.nextLine();
+		System.out.println("배송받을 주소를 입력해 주세요.");
+		String address = sc.nextLine();
+
+		Delivery info = new Delivery(name, address, one);//입력 정보들로 객체 생성
+
+		ArrayList<Delivery> check =dd.displayAll();//저장된 정보를 check에 담아서
+
+		if(check.size()==0) {
+			dd.addInfo(info);
+		}else {
+			for(int i = 0; i<check.size();i++) {//check과 info를 비교해서
+				if(!check.get(i).equals(info)) {//중복이 아니라면
+					dd.addInfo(info);//dao에 정보 추가
+					return;
+				}else{
+					one.setRent(true);//대출가능으로 다시 바꾸기
+					System.out.println("주문 기록이 이미 있습니다.");
+					return;
+				}
+
+			}
+		}
+
 	}
 
 	public void infoCheck(String name) {//2.배송 조회
@@ -231,10 +246,10 @@ public class BookManagement{
 		if (result.equalsIgnoreCase("Y")) {
 			
 			//책을 대여가능으로 전환
-			int booknum= dd.searchInfo(name).getBook().getbNum();
+			int booknum= dd.searchInfo(name).getBook().getbNum();//같은 이름에 담긴 책 번호
 			for (Book b : bookList) {
-				if(b.getbNum()==booknum) {
-					bd.updateRent(booknum, true);
+				if(b.getbNum()==booknum) {//같은 번호의 책이면
+					bd.updateRent(booknum, true);//책의 상태를 저장
 				}
 			}
 			

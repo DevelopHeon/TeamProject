@@ -1,6 +1,7 @@
 package com.kh.miniproject.model.vo;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Book implements Serializable{
 	/**
@@ -82,6 +83,27 @@ public class Book implements Serializable{
 		return bNum + ". 제목 : " + title + ", 작가 : " + author + ", 출판사 : " + publisher + " (대출 "
 				+ rentA + ")";
 
+	}
+	
+	@Override
+	public int hashCode() {
+		
+		return Objects.hash(title, author, publisher);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Book)) {
+			return false;
+		}
+		Book other = (Book)obj;
+		if(this.title.equals(other.title)
+				&&this.author.equals(other.author)
+				&&this.publisher.equals(other.publisher)) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
 	

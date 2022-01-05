@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import com.kh.miniproject.model.vo.Member;
 
 public class LoginDao {
-	
-	ArrayList<Member> memList = new ArrayList<Member>();
-	
-	public LoginDao() {//인풋 (파일 읽기)
-		try(ObjectInputStream logInOpen = new ObjectInputStream(new FileInputStream("Member.dat"))){			
+   
+   ArrayList<Member> memList = new ArrayList<Member>();
+   
+   public LoginDao() {//인풋 (파일 읽기)
+      try(ObjectInputStream logInOpen = new ObjectInputStream(new FileInputStream("Member.dat"))){         
 
 				memList.addAll((ArrayList<Member>)logInOpen.readObject());
 				
@@ -99,7 +99,5 @@ public class LoginDao {
 		}
 		return 0;
 	}
-
 }
 
-	
