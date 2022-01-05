@@ -46,8 +46,7 @@ public class ManagerLogin {
 			System.out.println("==== 관리자 메뉴 ====");
 			System.out.println("1. 공지사항 관리");
 			System.out.println("2. 도서 관리");
-			System.out.println("3. 전체 회원 조회");
-			System.out.println("4. 리뷰 게시판 조회");
+			System.out.println("3. 리뷰 게시판 조회");
 			System.out.println("0. 이전 메뉴로");
 			System.out.println("메뉴 선택 : ");
 
@@ -62,9 +61,6 @@ public class ManagerLogin {
 				bm.bookManagement();
 				break;
 			case 3:
-            mc.memberAllList();
-				break;
-			case 4:
 				rc.selectAll();
 				break;
 			case 0:

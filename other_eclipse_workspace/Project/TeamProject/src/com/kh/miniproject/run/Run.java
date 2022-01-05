@@ -8,7 +8,6 @@ public class Run {
 	
 		MainPage main = new MainPage();
 		main.mainMenu();
-		
 	}
 	
 }
