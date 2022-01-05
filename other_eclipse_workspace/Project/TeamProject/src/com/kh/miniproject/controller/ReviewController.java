@@ -1,6 +1,7 @@
 package com.kh.miniproject.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import com.kh.miniproject.model.dao.ReviewDao;
@@ -11,6 +12,8 @@ public class ReviewController {
 	ReviewDao rd = new ReviewDao();
 	Scanner sc = new Scanner(System.in);
 	
+	ArrayList<Review> rList = new ArrayList<Review>();
+	
 	public ReviewController() {
 		//기본 생성자
 	}
@@ -18,12 +21,17 @@ public class ReviewController {
 	//리뷰 전체 조회
 	public void selectAll() {
 		System.out.println("< 리뷰 게시판 조회 >");
+		Iterator it = rd.selectAll().iterator();
+		while(it.hasNext()){
+			System.out.println(it.next());
+		}
+	
 		//ReviewController의 slectAll() 메소드 호출하여 결과 값을 Review에 담기
-		ArrayList<Review> rList = rd.selectAll();
+		/*ArrayList<Review> rList = rd.selectAll();
 		
 		for(Review r : rList) {
 			System.out.println(r);
-		}
+		}*/
 	}
 	
 	//나의 리뷰내역 조회
@@ -110,7 +118,7 @@ public class ReviewController {
 		System.out.println("리뷰 내용(exit 입력 시 종료) : ");
 		String content = sc.nextLine();
 		String str = "";
-
+		
 		while(true) {
 			str = sc.nextLine();
 			
@@ -133,7 +141,9 @@ public class ReviewController {
 		
 		ArrayList<Review> checkList = rd.checkId(userId);
 		
+		
 		for(int i = 0; i < checkList.size(); i++) {
+			
 			System.out.println(checkList.get(i));
 		}
 		
@@ -142,14 +152,18 @@ public class ReviewController {
 			sc.nextLine();
 			
 			Review review = rd.myReview(no);
+			
 			if(review == null) {
 				System.out.println("조회된 글이 없습니다.");
 			}else {
 				
 			for(int i = 0; i < checkList.size(); i++) {
-				System.out.println(checkList.get(i));
-			}
 				
+				if(checkList.get(i).getRNo() == no) {
+					
+					System.out.println(checkList.get(i)); 
+				}
+			}	
 				System.out.println("변경할 제목 : ");
 				String title = sc.nextLine();
 				rd.updateTitle(no, title);
@@ -172,12 +186,16 @@ public class ReviewController {
 		sc.nextLine();
 		
 		Review review = rd.myReview(no);
+		
 		if(review == null) {
 			System.out.println("조회된 글이 없습니다.");
 		}else {	
-			for(int i = 0; i < checkList.size(); i++) {	
-				if(checkList.get(i).getRNo() == no) {
-					checkList.get(i);				
+			
+		for(int i = 0; i < checkList.size(); i++) {
+				
+			if(checkList.get(i).getRNo() == no) {
+			
+				System.out.println(checkList.get(i)); 
 			}
 		}
 			System.out.println("변경할 내용 : ");
@@ -193,7 +211,10 @@ public class ReviewController {
 		String userId = sc.nextLine();
 		
 		ArrayList<Review> checkList = rd.checkId(userId);
-		System.out.println(checkList);
+		
+		for(int i = 0; i < checkList.size(); i++) {
+			System.out.println(checkList.get(i));
+		}
 		
 		System.out.println("삭제할 리뷰 번호를 입력해주세요 : ");
 		int no = sc.nextInt();

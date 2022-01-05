@@ -109,7 +109,7 @@ ArrayList<Review> rList = new ArrayList<Review>();
 		}	
 		saveReviewFile();
 	}
-
+	//내용 수정
 	public void updateContent(int no, String content) {
 		
 		for(int i = 0; i < rList.size(); i++) {
@@ -124,7 +124,7 @@ ArrayList<Review> rList = new ArrayList<Review>();
 	//리뷰 삭제
 	public void deleteReview(int no) {
 		
-		for(int i = 1; i < rList.size(); i++) {
+		for(int i = 0; i < rList.size(); i++) {
 			if(rList.get(i).getRNo() == no) {
 				rList.remove(i);
 			}
@@ -135,17 +135,13 @@ ArrayList<Review> rList = new ArrayList<Review>();
 		}
 		Collections.sort(rList);//오름차순 정렬
 		saveReviewFile();
+		
 	}
-	
 			
 	//리뷰 저장하고 출력
 	public void saveReviewFile() {
 		
-		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("review_list.dat", true))) {
-			
-			for(int i = 1; i < rList.size(); i++) {
-				System.out.println(rList.get(i));
-			}
+		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("review_list.dat"))) {
 
 			oos.writeObject(rList);
 			
@@ -154,7 +150,6 @@ ArrayList<Review> rList = new ArrayList<Review>();
 		} catch (FileNotFoundException e) {
 			System.out.println("파일을 찾을 수 없습니다.");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
