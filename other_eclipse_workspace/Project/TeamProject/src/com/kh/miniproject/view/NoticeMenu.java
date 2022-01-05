@@ -3,6 +3,7 @@ package com.kh.miniproject.view;
 import java.util.Scanner;
 
 import com.kh.miniproject.controller.NoticeController;
+import com.kh.miniproject.model.dao.NoticeDao;
 
 public class NoticeMenu {
 

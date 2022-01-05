@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import com.kh.miniproject.model.vo.Notice;
@@ -33,11 +34,14 @@ public class NoticeDao {
 			e.printStackTrace();
 		}
 	}
+//	public NoticeDao() {}
+	
 
 	// 1. 공지사항 전체 조회
 	public ArrayList<Notice> displayAllList() {
 
 		return noticeList;
+	
 	}
 
 	// 마지막 번호 얻어 오기
@@ -140,7 +144,7 @@ public class NoticeDao {
 		return notice;
 	}
 
-	// 6. 공지사항 저장하기
+	// 공지사항 저장하기
 	public void fileSave() {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("noticeFile.dat"))) {
 			oos.writeObject(noticeList);
@@ -153,6 +157,23 @@ public class NoticeDao {
 		}
 
 	}
+	
+	// 파일로 저장된 객체 읽어오기
+//	public void fileOpen() {
+//		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("noticeFile.dat"))) {
+//
+//			// ArrayList에 있는 addAll메소드로 불러온다.
+//			System.out.println(noticeList.addAll((ArrayList<Notice>) ois.readObject()));
+//
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//
+//			e.printStackTrace();
+//		}
+//	}
 
 	public void allClear() {
 		// clear() 메소드로 공지사항 전체 삭제

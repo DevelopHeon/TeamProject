@@ -2,6 +2,7 @@ package com.kh.miniproject.view;
 
 import java.util.Scanner;
 
+import com.kh.miniproject.controller.MemberController;
 import com.kh.miniproject.controller.ReviewController;
 
 public class ManagerLogin {
@@ -14,8 +15,10 @@ public class ManagerLogin {
 	ReviewController rc = new ReviewController();
 	NoticeMenu nc = new NoticeMenu();
 	BookMenu bm = new BookMenu();
+	MemberController mc = new MemberController();
 
-	public ManagerLogin() { }
+	public ManagerLogin() {
+	}
 
 	public void managerMainMenu() {
 
@@ -34,7 +37,7 @@ public class ManagerLogin {
 			}
 			System.out.println("다시 시도하시겠습니까? (Y/N)");
 			String num = sc.nextLine();
-			if(num.equalsIgnoreCase("n")) {
+			if (num.equalsIgnoreCase("n")) {
 				return;
 			}
 		}
@@ -59,10 +62,10 @@ public class ManagerLogin {
 				bm.bookManagement();
 				break;
 			case 3:
-				rc.selectAll();
+            mc.memberAllList();
 				break;
 			case 4:
-//				ld.LoginDaoOpen();
+				rc.selectAll();
 				break;
 			case 0:
 				System.out.println("이전 메뉴로 돌아갑니다.");

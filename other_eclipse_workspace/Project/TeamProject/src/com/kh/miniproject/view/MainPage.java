@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.kh.miniproject.controller.MemberController;
 import com.kh.miniproject.controller.NoticeController;
 import com.kh.miniproject.model.dao.LoginDao;
+import com.kh.miniproject.model.dao.NoticeDao;
 
 public class MainPage {
 
@@ -17,6 +18,7 @@ public class MainPage {
 	private ManagerLogin mal = new ManagerLogin();
 	private MemberPage mp = new MemberPage();
 	private LoginDao ld = new LoginDao();
+	private NoticeDao nd = new NoticeDao();
 
 							
 	public void mainMenu() {
@@ -44,7 +46,8 @@ public class MainPage {
 				mc.join();
 				break;
 			case 4:
-				nc.noticeAllList();
+//				nc.noticeAllList();
+				nd.displayAllList();
 				break;
 			case 9:
 				System.out.println("프로그램을 종료합니다.");

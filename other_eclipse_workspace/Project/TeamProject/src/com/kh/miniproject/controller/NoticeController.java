@@ -23,7 +23,7 @@ public class NoticeController {
 	} // 기본 생성자
 
 	public void noticeAllList() {
-		// 공지 사항 전체 조회 반복자 사용
+		//공지 사항 전체 조회 반복자 사용
 		Iterator it = nd.displayAllList().iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());
@@ -79,6 +79,9 @@ public class NoticeController {
 
 	// 공지사항 수정하기
 	public void noticeEdit() { // 공지사항 수정
+		//공지사항 목록 출력
+//		noticeAllList();
+		nd.displayAllList();
 		// 공지사항 수정은 공지사항 번호로 호출하여 수정하도록 작성
 		System.out.println("몇 번째 공지사항을 수정하시겠습니까 ? ");
 		int num = sc.nextInt();
@@ -98,11 +101,13 @@ public class NoticeController {
 
 		System.out.print("공지사항 내용 : ");
 		String content = sc.nextLine();
-
+		
 		try {
 			nd.writeNotice(new Notice(nd.getLastNoticeNo() + 1, title, content));
+			fileSave();
 		} catch (IndexOutOfBoundsException e) {
 			nd.writeNotice(new Notice(1, title, content));
+			fileSave();
 		}
 
 	}
@@ -147,11 +152,14 @@ public class NoticeController {
 					
 					if(input.equalsIgnoreCase("y")) {
 						nd.allClear();
-						System.out.println("성공적으로 공지사항을 삭제하였습니다.");
+						System.out.println("성공	적으로 공지사항을 삭제하였습니다.");
 					}else {
 						System.out.println("잘못 입력하셨습니다. 이전메뉴로 돌아갑니다.");
 						return;
 					}
+				}else {
+					System.out.println("비밀번호가 틀렸습니다. 이전 메뉴로 돌아갑니다.");
+					break;
 				}
 			}
 		}
