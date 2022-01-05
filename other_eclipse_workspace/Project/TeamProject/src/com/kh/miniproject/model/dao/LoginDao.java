@@ -42,7 +42,7 @@ public class LoginDao {
 	
 	public void writeMember(Member member) {//회원 추가(가입)
 		memList.add(member);	
-		LoginDaoOpen();
+		System.out.println("회원 추가 완료");
 	}
 	
 	public int login(String id, String pwd) {//로그인
@@ -55,18 +55,18 @@ public class LoginDao {
 		return 0;
 	}
 	
-	public void memberInfoEdit(String id, String newPwd) {//회원정보 수정
+	public void memberInfoEdit(String id, String newPwd) {// 회원정보 수정
 		for (int i = 0; i < memList.size(); i++) {
 			if (memList.get(i).getId().equals(id)) {
 				memList.get(i).setPwd(newPwd);
 				LoginDaoOpen();
 				System.out.println("비밀번호가 수정이 완료되었습니다.");
-			}else {
-				System.out.println("조회된 아이디가 없습니다.");
+				return;
 			}
 		}
+		System.out.println("조회된 아이디가 없습니다.");
 	}
-	
+
 	public ArrayList<Member> memberSearch(String id) {//회원정보 전체 출력
 		return memList; 
 	}
@@ -74,13 +74,32 @@ public class LoginDao {
 	public void memberWithdraw(String id) {//회원 탈퇴
 
 		for (int i = 0; i < memList.size(); i++) {
-			if (memList.get(i).getId().equals(i)) {
+			if (memList.get(i).getId().equals(id)) {
 					memList.remove(i);
 				System.out.println("탈퇴가 완료되었습니다.");
 				LoginDaoOpen();
 			}
 		}
 	}
+
+	// 전체 회원 조회
+	public ArrayList<Member> memberAll() {
+		
+		return memList;
+	}
+
+	
+	// 아이디 중복 확인
+	public int checkId(String id) {
+		
+		for(Member mb : memList) {
+			if(mb.getId().equals(id)) {
+				return 1;
+			}
+		}
+		return 0;
+	}
+
 }
 
 	

@@ -154,7 +154,6 @@ ArrayList<Review> rList = new ArrayList<Review>();
 		} catch (FileNotFoundException e) {
 			System.out.println("파일을 찾을 수 없습니다.");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
