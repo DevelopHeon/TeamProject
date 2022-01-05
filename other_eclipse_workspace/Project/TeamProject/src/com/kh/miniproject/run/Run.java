@@ -1,5 +1,4 @@
 package com.kh.miniproject.run;
-
 import com.kh.miniproject.view.MainPage;
 
 public class Run {
