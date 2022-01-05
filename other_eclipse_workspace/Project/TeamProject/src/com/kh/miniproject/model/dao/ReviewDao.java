@@ -14,7 +14,7 @@ import com.kh.miniproject.model.vo.Review;
 public class ReviewDao {
 	
 
-ArrayList<Review> rList = new ArrayList<Review>();
+	ArrayList<Review> rList = new ArrayList<Review>();
 
 	//파일 불러오기
 
@@ -33,34 +33,52 @@ ArrayList<Review> rList = new ArrayList<Review>();
 		}
 	}
 		
-	//리뷰 전체 조회
-	public ArrayList<Review> selectAll() {
+	//리뷰 저장하고 출력
+	public void saveReviewFile() {
 		
-		return rList;
+		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("review_list.dat"))) {
+
+			oos.writeObject(rList);
+			
+			System.out.println("성공적으로 저장되었습니다.");
+
+		} catch (FileNotFoundException e) {
+			System.out.println("파일을 찾을 수 없습니다.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
+	//리뷰 전체 조회
+	public ArrayList<Review> selectAll() {
+		return rList;
+	}
+	//나의 리뷰 조회
 	public Review myReview(int no) {
 		
 		Review review = null;
 		for(int i = 0; i < rList.size(); i++) {
 			if(rList.get(i).getRNo() == no) {
-				// 반복문을 돌리면서 list에 있는 Board객체들의 게시글 번호를 확인하고
+				// 반복문을 돌리면서 list에 있는 review객체들의 게시글 번호를 확인하고
 				// 사용자가 입력했던 번호랑 일치하는게 있다면
 				review = rList.get(i);
-				// 그 Board객체를 저장
+				// 그 review객체를 저장
 				break;
 			}
 		}		
 		return review;
 	}
-	
+	//아이디 같은지 확인
 	public ArrayList<Review> checkId(String userId) {
 		ArrayList<Review> checkList = new ArrayList<Review>(); //결과값을 보관
 		
 		for(Review review : rList) {
 			if(review.getUserId().equals(userId)) {
 				checkList.add(review);
-			}
+			}else {
+				return null;
+			}			
 		}
 		return checkList;
 	}
@@ -99,7 +117,7 @@ ArrayList<Review> rList = new ArrayList<Review>();
 	}
 	
 	//제목 수정
-	public void updateTitle(int no, String title) {
+	public void updateTitle(int no, String title) {	
 		
 		for(int i = 0; i < rList.size(); i++) {
 			if(rList.get(i).getRNo() == no) {
@@ -109,7 +127,7 @@ ArrayList<Review> rList = new ArrayList<Review>();
 		}	
 		saveReviewFile();
 	}
-
+	//내용 수정
 	public void updateContent(int no, String content) {
 		
 		for(int i = 0; i < rList.size(); i++) {
@@ -123,8 +141,8 @@ ArrayList<Review> rList = new ArrayList<Review>();
 	
 	//리뷰 삭제
 	public void deleteReview(int no) {
-		
-		for(int i = 1; i < rList.size(); i++) {
+
+		for(int i = 0; i < rList.size(); i++) {
 			if(rList.get(i).getRNo() == no) {
 				rList.remove(i);
 			}
@@ -135,28 +153,8 @@ ArrayList<Review> rList = new ArrayList<Review>();
 		}
 		Collections.sort(rList);//오름차순 정렬
 		saveReviewFile();
-	}
-	
-			
-	//리뷰 저장하고 출력
-	public void saveReviewFile() {
 		
-		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("review_list.dat", true))) {
+	}
 			
-			for(int i = 1; i < rList.size(); i++) {
-				System.out.println(rList.get(i));
-			}
 
-			oos.writeObject(rList);
-			
-			System.out.println("성공적으로 저장되었습니다.");
-			
-		} catch (FileNotFoundException e) {
-			System.out.println("파일을 찾을 수 없습니다.");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
 }

@@ -7,7 +7,7 @@ import com.kh.miniproject.controller.ReviewController;
 public class ReviewBoard {
 	
 	private ReviewController rc = new ReviewController();
-	Scanner sc = new Scanner(System.in);
+	private Scanner sc = new Scanner(System.in);
 	
 	public ReviewBoard() { //기본생성자
 	}

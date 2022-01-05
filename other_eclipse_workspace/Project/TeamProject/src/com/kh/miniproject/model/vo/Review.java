@@ -59,7 +59,7 @@ public class Review implements Comparable<Review>, Serializable{
 
 	@Override
 	public String toString() {
-		return rNo + ". 제목 : " + title + "\t" + " 리뷰 내용 : " + content;
+		return rNo + ". 제목 : " + title + "\n" + " 리뷰 내용 : " + content;
 	}
 
 	@Override
