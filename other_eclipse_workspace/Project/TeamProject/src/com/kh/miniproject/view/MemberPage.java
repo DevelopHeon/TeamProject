@@ -120,30 +120,22 @@ public class MemberPage {
 
 			if (keyWord.equals("0")) {// 0 입력 -> while문 처음으로
 				break;
-			}
-
-			ArrayList<Book> searchList = bd.searchBook(keyWord);// BookManager의 searchBook호출, 출력
-
-			if (searchList.isEmpty()) {// 검색 결과가 없을 경우
-				System.out.println("검색 결과가 없습니다."); // 출력 후 반복문 처음으로 돌아감
-			} else {// 검색 결과가 있으면 출력
-				System.out.println("====검색 결과===");
-				for (Book b : searchList) { // 하나씩 출력하기 위한 for문
-					System.out.println(b);
-				}
-
+			}else {
+				
+				bm.searchBook(keyWord);//도서 검색
+				
 				// 검색한 책 출력 후 대여 번호 입력
-				System.out.println("0. 이전 메뉴로 가기");
 				System.out.println("대여할 책 번호를 선택해주세요.");
+				System.out.println("0. 이전 메뉴로 가기");
 				int num = sc.nextInt();
 				sc.nextLine();
-
+				
 				if (num == 0) {// 0 입력 -> while문 처음으로
 					break;
 				}else {
 					// BookManager의 rentBook 호출
 					bm.rentBook(num);
-
+					
 				}
 			}
 		}

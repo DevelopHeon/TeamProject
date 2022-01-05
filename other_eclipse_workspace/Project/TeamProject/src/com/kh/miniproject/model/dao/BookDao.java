@@ -116,19 +116,30 @@ public class BookDao {
 		return bookList.get(bookList.size() - 1).getbNum();
 	}
 
-	public ArrayList<Book> searchBook(String keyWord) {//도서 검색
+	//도서 검색
+	public ArrayList<Book> searchBook(String keyWord) {
 		
 		ArrayList<Book> searchList = new ArrayList<Book>();
 
 		for (int i = 0; i < bookList.size(); i++) {
-			if (bookList.get(i).getTitle().contains(keyWord)||bookList.get(i).getAuthor().contains(keyWord)) {
+			if (bookList.get(i).getTitle().contains(keyWord)
+					||bookList.get(i).getAuthor().contains(keyWord)) {
 				searchList.add(bookList.get(i));
 				
 			}
 		}
 		return searchList;
 	}
-	
+	public Book oneBook(Book one) {//책 하나만 출력
+		Book result = null;
+		for (int i = 0; i < bookList.size(); i++) {
+			if (bookList.get(i).equals(one)) {
+				result= bookList.get(i);
+				
+			}
+		}
+		return result;
+	}
 	public void deleteBook(int no) {// 도서 삭제
 		
 		for (int i = 0; i < bookList.size(); i++) {
