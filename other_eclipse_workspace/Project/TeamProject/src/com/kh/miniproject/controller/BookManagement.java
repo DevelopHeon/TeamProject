@@ -246,10 +246,10 @@ public class BookManagement{
 		if (result.equalsIgnoreCase("Y")) {
 			
 			//책을 대여가능으로 전환
-			int booknum= dd.searchInfo(name).getBook().getbNum();
+			int booknum= dd.searchInfo(name).getBook().getbNum();//같은 이름에 담긴 책 번호
 			for (Book b : bookList) {
-				if(b.getbNum()==booknum) {
-					bd.updateRent(booknum, true);
+				if(b.getbNum()==booknum) {//같은 번호의 책이면
+					bd.updateRent(booknum, true);//책의 상태를 저장
 				}
 			}
 			
