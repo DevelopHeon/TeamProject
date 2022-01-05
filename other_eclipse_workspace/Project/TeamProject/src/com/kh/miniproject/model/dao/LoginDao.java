@@ -74,7 +74,7 @@ public class LoginDao {
 	public void memberWithdraw(String id) {//회원 탈퇴
 
 		for (int i = 0; i < memList.size(); i++) {
-			if (memList.get(i).getId().equals(i)) {
+			if (memList.get(i).getId().equals(id)) {
 					memList.remove(i);
 				System.out.println("탈퇴가 완료되었습니다.");
 				LoginDaoOpen();

@@ -56,6 +56,14 @@ public class Member implements Serializable{
 
 
 	@Override
+	public String toString() {
+		return "Member [id=" + id + ", pwd=" + pwd + ", name=" + name + "]";
+	}
+
+
+
+
+	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
 		return (id+pwd+name).hashCode(); 
